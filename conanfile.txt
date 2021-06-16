@@ -1,0 +1,9 @@
+ [requires]
+cppzmq/4.7.1
+libsodium/1.0.18
+zeromq/4.3.3
+nlohmann_json/3.9.1
+tinyxml2/8.0.0
+ [generators]
+ cmake
+
