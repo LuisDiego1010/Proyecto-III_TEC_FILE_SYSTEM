@@ -3,5 +3,6 @@
 //
 #include "Huffman.h"
 int main(){
-    auto a= Encode(std::string("holaaalamo"));
+    auto msg=std::string("Pablito clavo un clavito, un clavito clavo pablito, que clavo pablito?");
+    auto a= Encode(msg);
 }
