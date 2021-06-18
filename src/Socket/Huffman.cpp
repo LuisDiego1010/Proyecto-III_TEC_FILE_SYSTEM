@@ -6,7 +6,8 @@
 #include <utility>
 #include <vector>
 #include <iostream>
-#define dividition 1
+#include <nlohmann/json.hpp>
+
 Node::Node() {
     quantity = 0;
 }
@@ -30,16 +31,16 @@ void InsertNode(std::vector<TreeNode> &vector, TreeNode node, long position= 0){
     SortVec(vector,position);
 }
 void CreateList(std::vector<TreeNode>& Nodes, const std::string& msg) {
-    for (int i=0; i<msg.size();i+=dividition) {
+    for (int i=0; i<msg.size();i+=Dividition) {
         for (int j = 0; j < Nodes.size() + 1; ++j) {
             if (j + 1 > Nodes.size()) {
                 auto tmp = TreeNode();
-                tmp.character = msg.substr(i,dividition);
+                tmp.character = msg.substr(i,Dividition);
                 tmp.quantity = 1;
                 Nodes.insert(Nodes.begin(), tmp);
                 break;
             } else {
-                if (Nodes[j].character == msg.substr(i,dividition)) {
+                if (Nodes[j].character == msg.substr(i,Dividition)) {
                     Nodes[j].quantity++;
                     if (j + 1 == Nodes.size()) {
                         break;
@@ -65,11 +66,9 @@ TreeNode* CreateTree(std::vector<TreeNode>& SortedList){
     }
     return &SortedList[SortedList.size()-1];
 }
-void CreateTable(std::vector<Node>& Table, TreeNode* node, const std::string& msg=""){
+void CreateTable(std::map<std::string,std::string>& Table, TreeNode* node, const std::string& msg=""){
     if(node->isLeaf()){
-        Node tmp= (Node)*node;
-        tmp.code=msg;
-        Table.push_back(tmp);
+        Table[node->character]=msg;
         return;
     }
     if(node->left!= nullptr){
@@ -79,35 +78,33 @@ void CreateTable(std::vector<Node>& Table, TreeNode* node, const std::string& ms
         CreateTable(Table, node->rigth, msg+"1");
     }
 }
-std::string Encode(const std::string &msg) {
+std::string Encode(const std::string &msg,int dividition) {
+    Dividition=dividition;
+//    Get characters and sort it
     std::vector<TreeNode> Nodes;
     CreateList(Nodes, msg);
+
+// list copy to send
+    std::map<std::string,long> Dict;
+    for (const TreeNode& a:Nodes) {
+        Dict[a.character]=a.quantity;
+    }
+//Create Tree
     TreeNode* tree=CreateTree(Nodes);
-    std::vector<Node> Table;
+//    Create table from the tree root node
+    std::map<std::string,std::string> Table;
     CreateTable(Table, tree);
-    std::cout << "Nodes";
-    for (const Node& a:Nodes) {
-        std::cout << a.quantity;
-        std::cout << a.character;
-        std::cout << std::endl;
-    }
-    std::cout << std::endl;
-    std::cout << "Table"<<std::endl;
-    for (const Node& a:Table) {
-        std::cout << a.character << "|"<< a.code;
-        std::cout << std::endl;
-    }
+
+//Encode using the table
     std::string d;
-    for (int i=0; i<msg.size();i+=dividition) {
-        for(const Node& b:Table){
-            if(msg.substr(i,dividition)==b.character){
-                d+=b.code;
-                break;
-            }
-        }
+    for (int i=0; i<msg.size();i+=Dividition) {
+        d+=Table[msg.substr(i,Dividition)];
     }
-    std::cout<<d;
-    return d;
+    nlohmann::basic_json<> data;
+    data["data"]=d;
+    data["dict"]=Dict;
+    std::cout<<to_string(data);
+    return to_string(data);
 }
 TreeNode::TreeNode(TreeNode *left, TreeNode *rigth) {
     this->rigth = rigth;

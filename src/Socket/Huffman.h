@@ -7,7 +7,9 @@
 
 #include <string>
 #include <vector>
+#include <map>
 
+static int Dividition=1;
 struct Node{
 public:
     bool operator>(Node other) const{
@@ -40,9 +42,9 @@ struct TreeNode:Node{
 
 void SortVec(std::vector<TreeNode>&, long );
 void InsertNode(std::vector<TreeNode>&, TreeNode, long);
-std::string Encode(const std::string&);
+std::string Encode(const std::string&,int=1);
 void CreateList(std::vector<TreeNode>&,const std::string&);
 TreeNode* CreateTree(std::vector<TreeNode>&);
-void CreateTable(std::vector<Node>&, TreeNode*, const std::string&);
+void CreateTable(std::map<std::string,std::string>&, TreeNode*, const std::string&);
 
 #endif //TEC_FILE_SYSTEM_HUFFMAN_H
