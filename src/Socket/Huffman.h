@@ -18,6 +18,9 @@ public:
     bool operator<(Node other) const{
         return this->quantity<other.quantity;
     };
+    bool operator==(Node other) const{
+        return this->quantity==other.quantity;
+    };
     bool operator==(int other) const{
         return this->quantity==other;
     };
@@ -27,7 +30,6 @@ public:
     Node();
     long quantity=0;
     std::string character;
-    std::string code;
 };
 
 struct TreeNode:Node{
@@ -46,5 +48,7 @@ std::string Encode(const std::string&,int=1);
 void CreateList(std::vector<TreeNode>&,const std::string&);
 TreeNode* CreateTree(std::vector<TreeNode>&);
 void CreateTable(std::map<std::string,std::string>&, TreeNode*, const std::string&);
+std::string Decode(const std::string*);
+void RunTree(TreeNode* ,std::string&, std::string&, long* );
 
 #endif //TEC_FILE_SYSTEM_HUFFMAN_H

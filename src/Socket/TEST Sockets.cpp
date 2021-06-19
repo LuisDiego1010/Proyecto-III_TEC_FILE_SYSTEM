@@ -4,9 +4,11 @@
 #include <iostream>
 #include "Huffman.h"
 int main(){
-    auto msg=std::string("Pablito clavo un clavito, un clavito clavo pablito, que clavo pablito?");
-
-    auto a= Encode(msg);
+    auto msg=std::string("En algun lugar de la mancha cuyo nombre no puedo recordar, Se encontraba Don Quijote, o algo asi, no recuerdo como empezaba el libro ya");
+    std::string a;
+    a= Encode(msg);
     std::cout<<std::endl;
-    auto b= Encode(a,2);
+    std::string b= Decode(&a);
+    std::cout<<std::endl;
+    std::cout<<b;
 }
