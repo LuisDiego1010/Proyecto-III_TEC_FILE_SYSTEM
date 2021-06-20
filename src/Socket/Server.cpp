@@ -14,24 +14,28 @@ void Server::init() {
     socket= new zmq::socket_t(ctx, Type);
 
     // bind to the socket
-    socket->bind(endpoint);
+    socket->bind(endpoint+Port);
     std::cout<<"binded";
 }
 
 std::string Server::recieve() {
+//    Recieve
     zmq::message_t msg;
     socket->recv(msg);
     std::cout<<"[S]Recieved: "<<msg.to_string();
-    return msg.to_string();
+//   Decode
+    std::string recieved=msg.to_string();
+    recieved= Decode(&recieved);
+    return recieved;
 }
 
 std::string Server::send(std::string msg) {
+//    Encode
+    msg= Encode(msg);
+//    Send
     zmq::message_t msg_send(msg);
     socket->send(msg_send, zmq::send_flags::none);
     std::cout<<"[S]Sended: "<<msg_send.to_string();
     return msg_send.to_string();
 }
 
-std::string Server::comunicatte(std::string msg) {
-    return std::string();
-}

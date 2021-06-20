@@ -8,11 +8,44 @@ include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
 set(CMAKE_PREFIX_PATH ${CONAN_LIBS})
-add_executable(TEC_FILE_SYSTEM
+add_library(Sockets
         src/Socket/Server.cpp
         src/Socket/Server.h
         "src/Socket/TEST Sockets.cpp"
         src/Socket/Huffman.cpp
-        src/Socket/Huffman.h)
-target_link_libraries(TEC_FILE_SYSTEM
+        src/Socket/Huffman.h
+        src/Socket/Client.cpp
+        src/Socket/Client.h)
+target_link_libraries(Sockets
         ${CONAN_LIBS})
+
+add_executable(CE_Programs
+
+        "src/CE programs/CeRobot.cpp"
+        "src/CE programs/CeRobot.h"
+        "src/CE programs/CeSearch.cpp"
+        "src/CE programs/CeSearch.h"
+        "src/CE programs/Main.cpp")
+add_link_options(CE_Programs Sockets)
+target_link_libraries(CE_Programs
+        ${CONAN_LIBS}
+        Sockets
+        )
+
+add_executable(Node_Controller
+        "src/Node Controller/NodeController.cpp"
+        "src/Node Controller/NodeController.h")
+add_link_options(Node_Controller Sockets)
+target_link_libraries(Node_Controller
+        ${CONAN_LIBS}
+        Sockets
+        )
+
+add_executable(Disk_Nodes
+        "src/Disk Nodes/DiskNodes.cpp"
+        "src/Disk Nodes/DiskNodes.h")
+add_link_options(Disk_Nodes Sockets)
+target_link_libraries(Disk_Nodes
+        ${CONAN_LIBS}
+        Sockets
+        )

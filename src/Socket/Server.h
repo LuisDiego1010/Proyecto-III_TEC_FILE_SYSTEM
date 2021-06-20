@@ -6,16 +6,17 @@
 #ifndef PROYECTO_II_SOCKET_SERVER_H
 #define PROYECTO_II_SOCKET_SERVER_H
 #include <zmq.hpp>
+#include "Huffman.h"
 
-#define port "4040"
 #define type zmq::socket_type::req
 
 class Server {
 public:
-    static Server* self;
+    Server* self;
 
     zmq::context_t ctx;
     std::string endpoint="tcp://*:";
+    std::string Port="4040";
 
     zmq::socket_t * socket;
 
@@ -24,14 +25,10 @@ public:
      * Init and connect the socket
      */
     void init();
-    /**
-     * \brief Virtual 1-1 conection
-     * @return
-     */
-    virtual std::string comunicatte(std::string);
+
     /**
      * Wait for a msg from the client
-     * @return the msg of the cleint as String
+     * @return the msg of the client as String
      */
     std::string recieve();
 
@@ -40,9 +37,6 @@ public:
      * @return the same msg
      */
     std::string send(std::string);
-
-    std::string HuffmanEncode(std::string);
-    std::string HuffmanDecode(std::string);
 
 };
 
