@@ -9,8 +9,6 @@
 
 class Socket_Client {
 public:
-     Socket_Client * self;
-     Socket_Client *getSocket();
 
     /**
      * \brief Initializer of the socket, create the singleton and connect to the server
@@ -25,6 +23,8 @@ public:
      * @return
      */
     std::string comunicatte(std::string);
+
+    void setPort(const std::string &port);
 };
 
 

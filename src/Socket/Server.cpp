@@ -25,13 +25,13 @@ std::string Server::recieve() {
     std::cout<<"[S]Recieved: "<<msg.to_string();
 //   Decode
     std::string recieved=msg.to_string();
-    recieved= Decode(&recieved);
+    recieved= Huffman::Decode(&recieved);
     return recieved;
 }
 
 std::string Server::send(std::string msg) {
 //    Encode
-    msg= Encode(msg);
+    msg= Huffman::Encode(msg);
 //    Send
     zmq::message_t msg_send(msg);
     socket->send(msg_send, zmq::send_flags::none);

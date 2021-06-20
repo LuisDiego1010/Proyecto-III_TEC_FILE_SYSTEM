@@ -4,6 +4,7 @@
 
 #ifndef TEC_FILE_SYSTEM_NODECONTROLLER_H
 #define TEC_FILE_SYSTEM_NODECONTROLLER_H
+#include "Socket/Server.h"
 
 
 class NodeController {

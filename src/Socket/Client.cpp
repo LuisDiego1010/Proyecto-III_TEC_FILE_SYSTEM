@@ -13,7 +13,7 @@ void Socket_Client::Init() {
 
 std::string Socket_Client::comunicatte(std::string msg) {
 //    Code
-    msg=Encode(msg);
+    msg=Huffman::Encode(msg);
 
 //    Send
     zmq::message_t msg_send(msg);
@@ -26,11 +26,11 @@ std::string Socket_Client::comunicatte(std::string msg) {
 
 //    Decode
     msg=msg_recieve.to_string();
-    msg= Decode(&msg);
+    msg= Huffman::Decode(&msg);
 
     return msg;
 }
 
-Socket_Client *Socket_Client::getSocket() {
-    return self;
+void Socket_Client::setPort(const std::string &port) {
+    Socket_Client::port = port;
 }

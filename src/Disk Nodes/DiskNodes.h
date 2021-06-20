@@ -9,6 +9,8 @@
 class DiskNodes {
 public:
     Socket_Client Socket;
+    FILE* Fdata;
+    std::string dir;
     void create();
 };
 

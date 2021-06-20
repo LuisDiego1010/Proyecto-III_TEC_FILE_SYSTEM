@@ -8,11 +8,12 @@
 #include <iostream>
 #include <nlohmann/json.hpp>
 
-Node::Node() {
+Huffman::Node::Node() {
     quantity = 0;
 }
 
-void SortVec(std::vector<TreeNode> &vector, long position = 0) {
+using namespace Huffman;
+void Huffman::SortVec(std::vector<TreeNode> &vector, long position = 0) {
     for (long k = position; k + 1 < vector.size(); ++k) {
         if ((vector[k] > vector[k + 1]) && vector[k + 1] != 0) {
             auto tmpN = vector[k];
@@ -24,7 +25,7 @@ void SortVec(std::vector<TreeNode> &vector, long position = 0) {
     }
 }
 
-void InsertNode(std::vector<TreeNode> &vector, TreeNode node, long position = 0) {
+void Huffman::InsertNode(std::vector<TreeNode> &vector, TreeNode node, long position = 0) {
     for (unsigned long i = vector.size() - 1; i > position; --i) {
         vector[i] = vector[i - 1];
     }
@@ -32,7 +33,7 @@ void InsertNode(std::vector<TreeNode> &vector, TreeNode node, long position = 0)
     SortVec(vector, position);
 }
 
-void CreateList(std::vector<TreeNode> &Nodes, const std::string &msg) {
+void Huffman::CreateList(std::vector<TreeNode> &Nodes, const std::string &msg) {
     for (int i = 0; i < msg.size(); i += Dividition) {
         for (int j = 0; j < Nodes.size() + 1; ++j) {
             if (j + 1 > Nodes.size()) {
@@ -57,7 +58,7 @@ void CreateList(std::vector<TreeNode> &Nodes, const std::string &msg) {
     }
 }
 
-TreeNode *CreateTree(std::vector<TreeNode> &SortedList) {
+TreeNode *Huffman::CreateTree(std::vector<TreeNode> &SortedList) {
     u_long lopp = SortedList.size();
     SortedList.resize(lopp * 2 - 1);
     long pos = 0;
@@ -70,7 +71,7 @@ TreeNode *CreateTree(std::vector<TreeNode> &SortedList) {
     return &SortedList[SortedList.size() - 1];
 }
 
-void CreateTable(std::map<std::string, std::string> &Table, TreeNode *node, const std::string &msg = "") {
+void Huffman::CreateTable(std::map<std::string, std::string> &Table, TreeNode *node, const std::string &msg = "") {
     if (node->isLeaf()) {
         Table[node->character] = msg;
         return;
@@ -83,7 +84,7 @@ void CreateTable(std::map<std::string, std::string> &Table, TreeNode *node, cons
     }
 }
 
-std::string Encode(const std::string &msg, int dividition) {
+std::string Huffman::Encode(const std::string &msg, int dividition) {
     Dividition = dividition;
 //    Get characters and sort it
     std::vector<TreeNode> Nodes;
@@ -123,7 +124,7 @@ std::string Encode(const std::string &msg, int dividition) {
     return to_string(data);
 }
 
-std::string Decode(const std::string* msg){
+std::string Huffman::Decode(const std::string* msg){
     nlohmann::basic_json<> data=nlohmann::basic_json<>::parse(*msg);
 //    Get the dict of the word
     std::map<std::string, long> Dict=data["dict"];
@@ -152,7 +153,7 @@ std::string Decode(const std::string* msg){
 
 
 }
-void RunTree(TreeNode* node,std::string& msg,std::string& Decoded, long* position= nullptr){
+void Huffman::RunTree(TreeNode* node,std::string& msg,std::string& Decoded, long* position= nullptr){
     if(position== nullptr){
         long a=0;
         position=&a;
