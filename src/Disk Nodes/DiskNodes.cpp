@@ -17,11 +17,11 @@ void DiskNodes::create() {
 //    Get the xml data
     tinyxml2::XMLDocument xml;
     auto error=xml.LoadFile(xmldir.data());
-
     auto a=xml.FirstChildElement()->FirstChildElement();
+
+//Set the xml data in the Socket and object
     Socket.setPort(a->FirstChild()->Value());
     a=a->NextSiblingElement();
-//Set the xml data in the Socket and object
     dir=a->FirstChild()->Value();
     xml.Clear();
 //    Create a tmp File to use
