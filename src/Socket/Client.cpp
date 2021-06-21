@@ -8,7 +8,8 @@ void Socket_Client::Init() {
     // generate a request socket
     zmq::socket_type type = zmq::socket_type::req;
     socket= new zmq::socket_t(ctx, type);
-    socket->connect(endpoint+port);
+    endpoint=endpoint+port;
+    socket->connect(endpoint);
 }
 
 std::string Socket_Client::comunicatte(std::string msg) {

@@ -15,7 +15,7 @@ public:
      */
     void Init();
     zmq::context_t ctx;
-    std::string endpoint="tcp://*:";
+    std::string endpoint="tcp://127.0.0.1:";
     std::string port="4040";
     zmq::socket_t * socket;
     /**

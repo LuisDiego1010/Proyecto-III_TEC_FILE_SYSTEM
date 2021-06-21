@@ -4,11 +4,11 @@
 
 #ifndef TEC_FILE_SYSTEM_DISKNODES_H
 #define TEC_FILE_SYSTEM_DISKNODES_H
-#include "Socket/Client.h"
+#include "Socket/Server.h"
 
 class DiskNodes {
 public:
-    Socket_Client Socket;
+    Server Socket;
     FILE* Fdata;
     std::string dir;
     void create();

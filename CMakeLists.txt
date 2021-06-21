@@ -26,7 +26,6 @@ add_executable(CE_Programs
         "src/CE programs/CeSearch.cpp"
         "src/CE programs/CeSearch.h"
         "src/CE programs/Main.cpp")
-add_link_options(CE_Programs Sockets)
 target_link_libraries(CE_Programs
         ${CONAN_LIBS}
         Sockets
@@ -35,7 +34,6 @@ target_link_libraries(CE_Programs
 add_executable(Node_Controller
         "src/Node Controller/NodeController.cpp"
         "src/Node Controller/NodeController.h")
-add_link_options(Node_Controller Sockets)
 target_link_libraries(Node_Controller
         ${CONAN_LIBS}
         Sockets
@@ -44,8 +42,15 @@ target_link_libraries(Node_Controller
 add_executable(Disk_Nodes
         "src/Disk Nodes/DiskNodes.cpp"
         "src/Disk Nodes/DiskNodes.h")
-add_link_options(Disk_Nodes Sockets)
 target_link_libraries(Disk_Nodes
+        ${CONAN_LIBS}
+        Sockets
+        )
+
+
+add_executable(test
+        "src/Socket/TEST Sockets.cpp")
+target_link_libraries(test
         ${CONAN_LIBS}
         Sockets
         )

@@ -8,7 +8,7 @@
 #include <zmq.hpp>
 #include "Huffman.h"
 
-#define type zmq::socket_type::req
+#define type zmq::socket_type::rep
 
 class Server {
 public:
@@ -24,7 +24,7 @@ public:
      * \brief Call at the start of the Server, No need to be called again.
      * Init and connect the socket
      */
-    void init();
+    void Init();
 
     /**
      * Wait for a msg from the client
@@ -38,6 +38,7 @@ public:
      */
     std::string send(std::string);
 
+    void setPort(const std::string &port);
 };
 
 

@@ -3,6 +3,8 @@
 //
 #include <iostream>
 #include "Huffman.h"
+#include "Client.h"
+#include "Server.h"
 int main(){
     auto msg=std::string("En algun lugar de la mancha cuyo nombre no puedo recordar, Se encontraba Don Quijote, o algo asi, no recuerdo como empezaba el libro ya");
     std::string a;
@@ -13,7 +15,15 @@ int main(){
     std::cout<<b;
 
 
-    auto first=
+    Socket_Client client=Socket_Client();
+    Server server;
+    client.setPort("4040");
+    server.setPort("4040");
+    client.Init();
+    std::cout<<std::endl;
+    std::cout<<client.comunicatte("stop");
 
+
+    exit(0);
 
 }

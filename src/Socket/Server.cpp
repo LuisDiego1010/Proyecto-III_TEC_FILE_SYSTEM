@@ -7,14 +7,15 @@
 #include <iostream>
 
 
-void Server::init() {
+void Server::Init() {
 
     // generate a request socket
     zmq::socket_type Type = type;
     socket= new zmq::socket_t(ctx, Type);
-
+    self= this;
     // bind to the socket
-    socket->bind(endpoint+Port);
+    endpoint=endpoint+Port;
+    socket->bind(endpoint);
     std::cout<<"binded";
 }
 
@@ -37,5 +38,9 @@ std::string Server::send(std::string msg) {
     socket->send(msg_send, zmq::send_flags::none);
     std::cout<<"[S]Sended: "<<msg_send.to_string();
     return msg_send.to_string();
+}
+
+void Server::setPort(const std::string &port) {
+    Port = port;
 }
 
