@@ -22,16 +22,16 @@ add_library(Sockets
         src/Socket/Client.cpp
         src/Socket/Client.h)
 target_link_libraries(Sockets
-
         ${CONAN_LIBS})
 
 add_executable(CE_Programs
+        "src/CE programs/main.cpp"
+        "src/CE programs/Interface.cpp"
+        "src/CE programs/Interface.h"
+        "src/CE programs/InputBox.h"
+        "src/CE programs/InputBox.cpp"
+  )
 
-        "src/CE programs/CeRobot.cpp"
-        "src/CE programs/CeRobot.h"
-        "src/CE programs/CeSearch.cpp"
-        "src/CE programs/CeSearch.h"
-        "src/CE programs/Main.cpp")
 target_link_libraries(CE_Programs
         ${CONAN_LIBS}
         Sockets
@@ -42,6 +42,7 @@ target_link_libraries(CE_Programs
 add_executable(Node_Controller
         "src/Node Controller/NodeController.cpp"
         "src/Node Controller/NodeController.h")
+
 target_link_libraries(Node_Controller
         ${CONAN_LIBS}
         Sockets
@@ -50,14 +51,15 @@ target_link_libraries(Node_Controller
 add_executable(Disk_Nodes
         "src/Disk Nodes/DiskNodes.cpp"
         "src/Disk Nodes/DiskNodes.h")
+
 target_link_libraries(Disk_Nodes
         ${CONAN_LIBS}
         Sockets
         )
 
-
 add_executable(test
         "src/Socket/TEST Sockets.cpp")
+
 target_link_libraries(test
         ${CONAN_LIBS}
         Sockets
