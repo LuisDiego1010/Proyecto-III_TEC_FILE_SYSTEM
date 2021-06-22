@@ -30,7 +30,10 @@ add_executable(CE_Programs
         "src/CE programs/Interface.h"
         "src/CE programs/InputBox.h"
         "src/CE programs/InputBox.cpp"
-  )
+        "src/CE programs/CESEARCH.cpp"
+        "src/CE programs/CESEARCH.h"
+        "src/CE programs/CEROBOT.cpp"
+        "src/CE programs/CEROBOT.h")
 
 target_link_libraries(CE_Programs
         ${CONAN_LIBS}

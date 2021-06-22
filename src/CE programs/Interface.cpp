@@ -4,6 +4,8 @@
 
 
 #include "Interface.h"
+#include "CEROBOT.h"
+#include "CESEARCH.h"
 #include "InputBox.h"
 #include <string>
 
@@ -24,12 +26,16 @@ void Interface::show(){
     if(!btnSearch.loadFromFile("src/CE programs/btnSEARCH.png")){
         cout<<"Error to charge image";
     }
-
-    sf::Font font;
+    Font font;
     if (!font.loadFromFile("src/CE programs/Fonts/Ubuntu-Bold.ttf"))
     {
         cout<<"Error to charge font";
     }
+
+    /*----------------Instances-----------------*/
+    CESEARCH CESEARCH;
+    CEROBOT CEROBOT;
+
     /*----------------Blockers-----------------*/
     Sprite sprbackground;
     Sprite sprbtnSearch;
@@ -49,11 +55,25 @@ void Interface::show(){
   	while (window.isOpen())
 	{
 		Event event;
+        auto mouse_pos = sf::Mouse::getPosition(window); // Mouse position relative to the window
+        auto translated_pos = window.mapPixelToCoords(mouse_pos); // Mouse position translated into world coordinates
 		while (window.pollEvent(event))
 		{
-			if (event.type == Event::Closed)
-				window.close();
-		}
+			if (event.type == Event::Closed){
+                window.close();
+			}
+            }if (sprbtnSearch.getGlobalBounds().contains(translated_pos)) {
+                if (event.type == Event::MouseButtonPressed) {
+                    window.close();
+                    CESEARCH.show();
+                }
+		    }if (sprbtnFile.getGlobalBounds().contains(translated_pos)) {
+                if (event.type == Event::MouseButtonPressed) {
+                    window.close();
+                    CEROBOT.show();
+            }
+        }
+
         window.clear(Color::Transparent);
         window.draw(sprbackground);
         window.draw(sprbtnFile);

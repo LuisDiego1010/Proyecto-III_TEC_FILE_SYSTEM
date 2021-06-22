@@ -16,7 +16,7 @@ void InputBox::draw(RenderTarget &target, RenderStates states) const {
 
 InputBox::InputBox(Vector2f size) {
     if(!LFont){
-        LFont=InputBox::font.loadFromFile("src/cpp/Client/Interface/Fonts/Ubuntu-Bold.ttf");
+        LFont=InputBox::font.loadFromFile("src/CE programs/Fonts/Ubuntu-Bold.ttf");
     }
     rectangle=RectangleShape(size);
     print=Text(text, InputBox::font, size.y-2);
