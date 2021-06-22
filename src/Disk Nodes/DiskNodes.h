@@ -12,8 +12,10 @@ public:
     Server Socket;
     std::string dir;
     void create();
-    void Write(std::string&);
+    int Write(std::string&, bool=true);
+    std::string Read(std::string&);
     static void Start();
+
 };
 
 #endif //TEC_FILE_SYSTEM_DISKNODES_H

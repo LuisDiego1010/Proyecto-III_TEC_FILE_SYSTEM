@@ -104,7 +104,7 @@ std::string parityChecker(const std::string& stream, bool evenParity){
         parity = !parity;
     }
     if(parity==evenParity){
-        return std::string("error");
+        return std::string("-2");
     }
     return stream.substr(0,stream.size()-1);
 }

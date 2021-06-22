@@ -35,9 +35,8 @@ void DiskNodes::create() {
     Socket.Init();
 }
 
-void DiskNodes::Write(std::string& msg) {
+int DiskNodes::Write(std::string& msg,bool retry) {
     nlohmann::basic_json<> Json=nlohmann::basic_json<>::parse(msg);
-
     std::string towrite=Json["data"];
     std::string name=Json["name"];
     unsigned long int size=towrite.size();
@@ -55,11 +54,29 @@ void DiskNodes::Write(std::string& msg) {
     for (const auto&[key, value]:metadata) {
         std::string tmp=towrite.substr(size*BlockSize,BlockSize);
         tmp= parityGenerator(tmp);
-        std::ofstream out(key+".txt");
+        std::ofstream out(dir+key+".txt");
         out.seekp(BlockSize-value);
-        out.write(tmp.data(),tmp.size());
+        out.write(tmp.data(),(long)tmp.size());
+        if(out.rdstate()!=std::ios_base::goodbit){
+            if(!retry){
+                return -1;
+            }
+            return DiskNodes::Write(msg,false);
+
+        }
         size++;
     }
+    nlohmann::basic_json<> JsonMeta;
+    JsonMeta["name"]=name;
+    JsonMeta["Nodes"]=metadata;
+    std::string tmp=to_string(JsonMeta);
+    std::ofstream out(dir+name+".txt");
+    out.write(tmp.data(),(long)tmp.size());
+    out.seekp((long)tmp.size());
+    out.write("\n",1);
+    out.seekp((long)(BlockSize));
+    out.write("",1);
+    return 1;
 }
 
 void DiskNodes::Start(){
@@ -72,17 +89,57 @@ void DiskNodes::Start(){
         if(a=="stop"){
             break;
         }
-        socket->send(a+"a");
+        nlohmann::basic_json<> Json=nlohmann::basic_json<>::parse(a);
+        if(Json.contains("data")){
+            int error_code=disk.Write(a);
+            Json["error"]=error_code;
+            Json["data"]="";
+            Json.erase("data");
+            socket->send(to_string(Json));
+        }else{
+            std::string StoragedData=disk.Read(a);
+            socket->send(to_string(Json));
+        }
+
     }
     exit(0);
 }
+
+std::string DiskNodes::Read(std::string & msg) {
+    nlohmann::basic_json<> Json=nlohmann::basic_json<>::parse(msg);
+    std::string name=Json["name"];
+    std::string metadata;
+    std::ifstream MetaDataFile(dir+name+".txt");
+    getline(MetaDataFile,metadata);
+    nlohmann::basic_json<> Metadata=nlohmann::basic_json<>::parse(metadata);
+    std::map<std::string, int> files=Metadata["Nodes"];
+    std::string TEXT;
+    for (const auto&[key, value]:files) {
+        std::string tmp("",value+1);
+        std::ifstream in(dir+key+".txt");
+        in.seekg(BlockSize-value);
+        in.read(tmp.data(),value+1);
+        tmp= parityChecker(tmp);
+        if(tmp.size()!=value||tmp==std::string("-2")){
+            Json["error"]=-2;
+            return to_string(Json);
+        }
+        TEXT+=tmp;
+    }
+    return TEXT;
+}
+
 int main(){
     nlohmann::basic_json<> Json;
-    Json["data"]=std::string("En algun lugar de la mancha cuyo nombre no puedo recordar, Se encontraba Don Quijote, o algo asi, no recuerdo como empezaba el libro ya");
+    Json["data"]=std::string("En algun lugar de la mancha cuyo nombre \n no puedo recordar, Se encontraba Don Quijote, o algo asi, no recuerdo como empezaba el libro ya");
     Json["name"]=std::string("test");
     DiskNodes test;
     test.dir="test/";
     std::string a=to_string(Json);
     test.Write(a);
-//    DiskNodes::Start();
+    std::cout<< test.Read(a);
+    if(Json["data"]==test.Read(a)){
+        std::cout<< "test estatico de lectura pasado";
+    }
+    DiskNodes::Start();
 }
