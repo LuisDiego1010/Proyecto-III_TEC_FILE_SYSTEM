@@ -10,7 +10,7 @@
 void Server::Init() {
 
     // generate a request socket
-    zmq::socket_type Type = type;
+    zmq::socket_type Type = zmq::socket_type::rep;
     socket= new zmq::socket_t(ctx, Type);
     self= this;
     // bind to the socket

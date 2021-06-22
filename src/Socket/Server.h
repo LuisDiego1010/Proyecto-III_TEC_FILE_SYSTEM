@@ -7,9 +7,6 @@
 #define PROYECTO_II_SOCKET_SERVER_H
 #include <zmq.hpp>
 #include "Huffman.h"
-
-#define type zmq::socket_type::rep
-
 class Server {
 public:
     Server* self;

@@ -16,7 +16,6 @@ find_package(SFML 2.5 COMPONENTS graphics audio REQUIRED)
 add_library(Sockets
         src/Socket/Server.cpp
         src/Socket/Server.h
-        "src/Socket/TEST Sockets.cpp"
         src/Socket/Huffman.cpp
         src/Socket/Huffman.h
         src/Socket/Client.cpp
@@ -49,16 +48,17 @@ target_link_libraries(Node_Controller
 
 add_executable(Disk_Nodes
         "src/Disk Nodes/DiskNodes.cpp"
-        "src/Disk Nodes/DiskNodes.h")
+        "src/Disk Nodes/DiskNodes.h"
+        "src/Disk Nodes/parity check.cpp" "src/Disk Nodes/Parity.cpp" "src/Disk Nodes/Parity.h")
 target_link_libraries(Disk_Nodes
         ${CONAN_LIBS}
         Sockets
         )
 
-
-add_executable(test
-        "src/Socket/TEST Sockets.cpp")
-target_link_libraries(test
-        ${CONAN_LIBS}
-        Sockets
-        )
+#
+#add_executable(test
+#        "src/Socket/TEST Sockets.cpp")
+#target_link_libraries(test
+#        ${CONAN_LIBS}
+#        Sockets
+#        )

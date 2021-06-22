@@ -4,8 +4,13 @@
 
 #include "DiskNodes.h"
 #include <tinyxml2.h>
+#include <cmath>
 #include <iostream>
-
+#include <sys/stat.h>
+#include <cmath>
+#include <nlohmann/json.hpp>
+#include <fstream>
+#include "Parity.h"
 void DiskNodes::create() {
 //    Get xml dir
     char *file =new char[150];
@@ -17,19 +22,47 @@ void DiskNodes::create() {
 //    Get the xml data
     tinyxml2::XMLDocument xml;
     auto error=xml.LoadFile(xmldir.data());
+
     auto a=xml.FirstChildElement()->FirstChildElement();
 
 //Set the xml data in the Socket and object
     Socket.setPort(a->FirstChild()->Value());
     a=a->NextSiblingElement();
     dir=a->FirstChild()->Value();
+    mkdir(dir.data(),0777);
     xml.Clear();
-//    Create a tmp File to use
-    Fdata=tmpfile();
 //    Init Socket and wait for connect
     Socket.Init();
 }
-int main(){
+
+void DiskNodes::Write(std::string& msg) {
+    nlohmann::basic_json<> Json=nlohmann::basic_json<>::parse(msg);
+
+    std::string towrite=Json["data"];
+    std::string name=Json["name"];
+    unsigned long int size=towrite.size();
+    std::map<std::string,int> metadata;
+    int bloks=std::ceil((float)size/(float)BlockSize-1);
+    for (int i = 0; i <= bloks; ++i) {
+        if(i==bloks){
+            metadata[name+std::to_string(i)]=(int)size;
+            break;
+        }
+        metadata[name+std::to_string(i)]=BlockSize;
+        size-=BlockSize-1;
+    }
+    size=0;
+    for (const auto&[key, value]:metadata) {
+        std::string tmp=towrite.substr(size*BlockSize,BlockSize);
+        tmp= parityGenerator(tmp);
+        std::ofstream out(key+".txt");
+        out.seekp(BlockSize-value);
+        out.write(tmp.data(),BlockSize);
+        size++;
+    }
+}
+
+void DiskNodes::Start(){
     DiskNodes disk;
     disk.create();
     auto socket=disk.Socket.self;
@@ -42,4 +75,14 @@ int main(){
         socket->send(a+"a");
     }
     exit(0);
+}
+int main(){
+    nlohmann::basic_json<> Json;
+    Json["data"]=std::string("asdasdasd");
+    Json["name"]=std::string("test");
+    DiskNodes test;
+    test.dir="test/";
+    std::string a=to_string(Json);
+    test.Write(a);
+//    DiskNodes::Start();
 }
