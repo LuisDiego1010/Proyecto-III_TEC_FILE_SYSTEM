@@ -3,18 +3,24 @@
 //
 
 #include "CEROBOT.h"
+#include "Interface.h"
 
 CEROBOT::CEROBOT() = default;
 
 void CEROBOT::show() {
     Texture backgroundCEROBOT2;
     Texture btnCEROBOT2;
+    Texture btnmenu;
 
     if(!backgroundCEROBOT2.loadFromFile("src/CE programs/backgroundCEROBOT.png")){
         cout<<"Error to charge image";
     }
 
     if(!btnCEROBOT2.loadFromFile("src/CE programs/btnCEROBOT2.png")){
+        cout<<"Error to charge image";
+    }
+
+    if(!btnmenu.loadFromFile("src/CE programs/sprmenu.png")){
         cout<<"Error to charge image";
     }
 
@@ -32,6 +38,12 @@ void CEROBOT::show() {
     sprbtnRobot2.setTexture(btnCEROBOT2);
     sprbtnRobot2.setPosition(1200, 250);
 
+    Sprite sprMenu;
+    sprMenu.setTexture(btnmenu);
+    sprMenu.setPosition(1800, 950);
+
+    Interface mainInterface;
+
     RenderWindow window(VideoMode(1920, 1080), "TEC FILE SYSTEM");
     while (window.isOpen())
     {
@@ -42,15 +54,21 @@ void CEROBOT::show() {
         {
             if (event.type == Event::Closed){
                 window.close();
-            }
-        }if (sprbtnRobot2.getGlobalBounds().contains(translated_pos)) {
-            if (event.type == Event::MouseButtonPressed) {
-                //LOGICA DE CEROBOT
+            }else if (event.type == Event::MouseButtonPressed) {
+                if (sprbtnRobot2.getGlobalBounds().contains(translated_pos)) {
+                    if (event.type == Event::MouseButtonPressed) {
+                        //LOGICA DE CEROBOT
+                    }
+                }if (sprMenu.getGlobalBounds().contains(translated_pos)) {
+                    mainInterface.show();
+                    window.close();
+                    return;
+                }
             }
         }
-
         window.clear(Color::Transparent);
         window.draw(sprbackgroundCEROBOT2);
+        window.draw(sprMenu);
         window.draw(sprbtnRobot2);
         window.display();
     }

@@ -18,15 +18,21 @@ using namespace std;
 
 class CESEARCH {
 public:
-/**
- * @brief Constructor of class (DEFAULT)
- */
+    string nameSearchBook;
+    /**
+    * @brief Constructor of class (DEFAULT)
+    */
      CESEARCH();
 
-/**
-* @brief Responsible for displaying the configuration window.
-*/
+    /**
+    * @brief Responsible for displaying the configuration window.
+    */
     void show();
+
+    /**
+    * @brief * @brief Method for set the name of books
+    */
+    string setNameSearchBook(String name_Book);
 };
 
 

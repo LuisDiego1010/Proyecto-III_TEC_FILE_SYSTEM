@@ -48,8 +48,7 @@ void Interface::show(){
     sprbtnSearch.setTexture(btnSearch);
     sprbtnSearch.setPosition(1200,250);
 
-    InputBox searchbox=InputBox(Vector2f(500,30));
-    searchbox.setPosition(1200, 780);
+
 
   RenderWindow window(VideoMode(1920, 1080), "TEC FILE SYSTEM");
   	while (window.isOpen())
@@ -78,7 +77,6 @@ void Interface::show(){
         window.draw(sprbackground);
         window.draw(sprbtnFile);
         window.draw(sprbtnSearch);
-        window.draw(searchbox);
 		window.display();
 	}
 }

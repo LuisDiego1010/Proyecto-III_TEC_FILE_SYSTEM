@@ -3,18 +3,26 @@
 //
 
 #include "CESEARCH.h"
+#include "InputBox.h"
+#include "Interface.h"
 
 CESEARCH::CESEARCH() = default;
 
 void CESEARCH::show() {
     Texture backgroundCESEARCH2;
     Texture btnCESEARCH2;
+    Texture btnmenu;
+
 
     if(!backgroundCESEARCH2.loadFromFile("src/CE programs/backgroundCESEARCH.png")){
         cout<<"Error to charge image";
     }
 
     if(!btnCESEARCH2.loadFromFile("src/CE programs/btnCESEARCH2.png")){
+        cout<<"Error to charge image";
+    }
+
+    if(!btnmenu.loadFromFile("src/CE programs/sprmenu.png")){
         cout<<"Error to charge image";
     }
 
@@ -25,12 +33,21 @@ void CESEARCH::show() {
     }
 
     Sprite sprbackgroundCESEARCH;
-    sprbackgroundCESEARCH.setTexture(btnCESEARCH2);
+    sprbackgroundCESEARCH.setTexture(backgroundCESEARCH2);
     sprbackgroundCESEARCH.setPosition(0, 0);
 
     Sprite sprbtnSearch2;
     sprbtnSearch2.setTexture(btnCESEARCH2);
     sprbtnSearch2.setPosition(1200, 250);
+
+    Sprite sprMenu;
+    sprMenu.setTexture(btnmenu);
+    sprMenu.setPosition(1800, 950);
+
+    InputBox searchbox (Vector2f(550,30));
+    searchbox.setPosition(600, 270);
+
+    Interface mainInterface;
 
     RenderWindow window(VideoMode(1920, 1080), "CESEARCH");
     while (window.isOpen())
@@ -38,20 +55,42 @@ void CESEARCH::show() {
         Event event;
         auto mouse_pos = sf::Mouse::getPosition(window); // Mouse position relative to the window
         auto translated_pos = window.mapPixelToCoords(mouse_pos); // Mouse position translated into world coordinates
+
         while (window.pollEvent(event))
         {
             if (event.type == Event::Closed){
                 window.close();
-            }
-        }if (sprbtnSearch2.getGlobalBounds().contains(translated_pos)) {
-            if (event.type == Event::MouseButtonPressed) {
-                //LOGICA DE CESEARCH
+
+            }if (event.type == Event::MouseButtonPressed) {
+                if (sprbtnSearch2.getGlobalBounds().contains(translated_pos)) {
+                    if (searchbox.text!=""){
+                        setNameSearchBook(searchbox.text);
+                        cout<<"SE ESTA BUCANDO EL LIBRO CON EL NOMBRE: "<<nameSearchBook;
+                        //AQUÍ SE REALIZA LA LÓGICA PARA OBTNER LA INFORMACIÓN DEL LIBRO BUSCADO
+                        window.close();
+                    }
+                }
+                if (sprMenu.getGlobalBounds().contains(translated_pos)) {
+                    mainInterface.show();
+                    window.close();
+                    return;
+                }else{
+                    searchbox.select(translated_pos);
+                }
+            }else if(event.type==Event::TextEntered) {
+                searchbox.write(event);
             }
         }
 
         window.clear(Color::Transparent);
         window.draw(sprbackgroundCESEARCH);
+        window.draw(searchbox);
+        window.draw(sprMenu);
         window.draw(sprbtnSearch2);
         window.display();
     }
+}
+string CESEARCH::setNameSearchBook(String name_Book) {
+    CESEARCH::nameSearchBook = name_Book;
+    return nameSearchBook;
 }
