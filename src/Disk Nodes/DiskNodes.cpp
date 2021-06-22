@@ -57,7 +57,7 @@ void DiskNodes::Write(std::string& msg) {
         tmp= parityGenerator(tmp);
         std::ofstream out(key+".txt");
         out.seekp(BlockSize-value);
-        out.write(tmp.data(),BlockSize);
+        out.write(tmp.data(),tmp.size());
         size++;
     }
 }
@@ -78,7 +78,7 @@ void DiskNodes::Start(){
 }
 int main(){
     nlohmann::basic_json<> Json;
-    Json["data"]=std::string("asdasdasd");
+    Json["data"]=std::string("En algun lugar de la mancha cuyo nombre no puedo recordar, Se encontraba Don Quijote, o algo asi, no recuerdo como empezaba el libro ya");
     Json["name"]=std::string("test");
     DiskNodes test;
     test.dir="test/";
