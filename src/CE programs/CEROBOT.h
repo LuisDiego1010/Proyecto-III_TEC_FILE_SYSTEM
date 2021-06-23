@@ -22,10 +22,10 @@ class CEROBOT {
 public:
     string dirPath;
     vector<string> elementos;
+    bool active;
 
 
-
-/**
+    /**
  * @brief Constructor of class (DEFAULT)
  */
     CEROBOT();

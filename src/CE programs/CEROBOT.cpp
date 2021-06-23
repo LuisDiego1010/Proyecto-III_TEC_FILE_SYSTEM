@@ -25,7 +25,7 @@ void CEROBOT::list_dir(string dir) {
             if (elem != "." && elem != "..") {
                 elementos.push_back(elem);
                 i++;
-                cout << elem << endl;
+                //cout << elem << endl;
             }
         }
     }
@@ -34,6 +34,7 @@ void CEROBOT::list_dir(string dir) {
 
 void CEROBOT::init() {
     list_dir(dirPath);
+    active = true;
 }
 
 void CEROBOT::show() {
@@ -78,7 +79,7 @@ void CEROBOT::show() {
 
     Interface mainInterface;
 
-    bool active = false;
+    active = false;
     RenderWindow window(VideoMode(1920, 1080), "TEC FILE SYSTEM");
     while (window.isOpen()) {
         Event event;
@@ -91,23 +92,23 @@ void CEROBOT::show() {
                 if (sprbtnRobot2.getGlobalBounds().contains(translated_pos)) {
                     if (event.type == Event::MouseButtonPressed) {
 
-                        if (Dirbox.text != "") {
-                            dirPath = Dirbox.text;
-                            active = true;
-                            if (active == true) {
-                                init();
-                                active = false;
-                                string a = "";
-                                for (int i = 0; i < elementos.size(); i++) {
-                                    a+= elementos[i];
-                                    a+= " ";
-                                }
-                                Resultsbox.PrintScreen(a);
+                        char *file = new char[150];
+                        FILE *direc = popen("zenity --file-selection --directory", "r");
+                        fgets(file, 150, direc);
+                        string fileDir(file);
+                        delete file;
+                        fileDir.pop_back();
+                        dirPath = fileDir;
+                        init();
+                        if (active == true) {
+                            string a = "";
+                            for (int i = 0; i < elementos.size(); i++) {
+                                a += elementos[i];
+                                a += " ";
                             }
-
+                            Resultsbox.PrintScreen(a);
+                            active = false;
                         }
-
-
                     }
                 }
                 if (sprMenu.getGlobalBounds().contains(translated_pos)) {
