@@ -59,10 +59,10 @@ target_link_libraries(Disk_Nodes
         Sockets
         )
 
-#
-#add_executable(test
-#        "src/Socket/TEST Sockets.cpp")
-#target_link_libraries(test
-#        ${CONAN_LIBS}
-#        Sockets
-#        )
+
+add_executable(test
+        "src/Socket/TEST Sockets.cpp")
+target_link_libraries(test
+        ${CONAN_LIBS}
+        Sockets
+        )

@@ -17,7 +17,7 @@ int main(){
 
     Socket_Client client=Socket_Client();
     Server server;
-    client.setPort("4040");
+    client.setPort("4043");
     server.setPort("4040");
     client.Init();
     std::cout<<std::endl;
