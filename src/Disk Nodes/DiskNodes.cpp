@@ -139,6 +139,7 @@ std::string DiskNodes::Read(std::string &msg) {
             Json["error"] = -5;
             return to_string(Json);
         }
+        in.tellg();
         in.seekg(BlockSize - value);
         in.read(tmp.data(), value + 1);
         tmp = parityChecker(tmp);

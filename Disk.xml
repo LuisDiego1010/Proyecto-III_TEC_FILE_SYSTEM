@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Disk>
+<Disks>
+    <PORT>4041</PORT>
+    <PORT>4042</PORT>
     <PORT>4043</PORT>
-    <DIR>Disk1/</DIR>
-</Disk>
+</Disks>
