@@ -48,6 +48,8 @@ public:
      * @param event
      */
     void write(Event event);
+
+    void PrintScreen(std::string="");
 };
 
 

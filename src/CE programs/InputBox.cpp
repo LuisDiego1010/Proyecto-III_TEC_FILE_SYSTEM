@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <utility>
 #include "InputBox.h"
 using namespace sf;
 using namespace std;
@@ -55,6 +56,12 @@ void InputBox::write(Event event) {
     }
     text+=event.text.unicode;
 
+    print.setString(text);
+
+}
+
+void InputBox::PrintScreen(std::string toPrint) {
+    text=std::move(toPrint);
     print.setString(text);
 
 }
