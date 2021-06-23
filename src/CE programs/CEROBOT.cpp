@@ -6,6 +6,7 @@
 #include "Interface.h"
 #include <iostream>
 #include <dirent.h>
+#include <fstream>
 #include "InputBox.h"
 
 using namespace std;
@@ -41,9 +42,6 @@ void CEROBOT::show() {
     Texture backgroundCEROBOT2;
     Texture btnCEROBOT2;
     Texture btnmenu;
-
-    InputBox Dirbox(Vector2f(550, 30));
-    Dirbox.setPosition(600, 270);
 
     InputBox Resultsbox(Vector2f(1920, 30));
     Resultsbox.setPosition(0, 370);
@@ -91,7 +89,6 @@ void CEROBOT::show() {
             } else if (event.type == Event::MouseButtonPressed) {
                 if (sprbtnRobot2.getGlobalBounds().contains(translated_pos)) {
                     if (event.type == Event::MouseButtonPressed) {
-
                         char *file = new char[150];
                         FILE *direc = popen("zenity --file-selection --directory", "r");
                         fgets(file, 150, direc);
@@ -103,8 +100,20 @@ void CEROBOT::show() {
                         if (active == true) {
                             string a = "";
                             for (int i = 0; i < elementos.size(); i++) {
+                                std::ifstream in(dirPath + "/" + elementos[i]);
+                                if (!in.good()) {
+                                    //Comprobacion de error
+                                }
+
+                                in.seekg(0, in.end);
+                                int pos = in.tellg();
+                                string tmp("", pos);
+                                in.seekg(0, in.beg);
+                                in.read(tmp.data(), pos);
+
+                                cout << elementos[i] << endl;
                                 a += elementos[i];
-                                a += " ";
+                                a += "     ";
                             }
                             Resultsbox.PrintScreen(a);
                             active = false;
@@ -115,19 +124,12 @@ void CEROBOT::show() {
                     mainInterface.show();
                     window.close();
                     return;
-                } else {
-                    Dirbox.select(translated_pos);
                 }
-            } else if (event.type == Event::TextEntered) {
-
-                Dirbox.write(event);
-
             }
         }
         window.clear(Color::Transparent);
         window.draw(sprbackgroundCEROBOT2);
         window.draw(sprMenu);
-        window.draw(Dirbox);
         window.draw(Resultsbox);
         window.draw(sprbtnRobot2);
         window.display();
