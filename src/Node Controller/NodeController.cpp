@@ -17,7 +17,6 @@ void NodeController::create() {
 //    Get the xml data
     tinyxml2::XMLDocument xml;
     auto error = xml.LoadFile(xmldir.data());
-
     auto root = xml.FirstChildElement();
     auto socket = root->FirstChildElement();
     while (socket != root->LastChild()) {
@@ -27,7 +26,6 @@ void NodeController::create() {
         DISKS.push_back(tmpSocket);
         socket = socket->NextSiblingElement();
         tmpSocket->Init();
-
     }
     auto *tmpSocket = new Socket_Client;
     //Set the xml data in the Socket and object
@@ -35,7 +33,7 @@ void NodeController::create() {
     DISKS.push_back(tmpSocket);
     tmpSocket->Init();
 
-//    Init Sockets and wait for connect
+//  Init Sockets and wait for connect
     CESocket.Init();
 }
 

@@ -12,10 +12,25 @@ class NodeController {
     Server CESocket;
     std::vector<Socket_Client*> DISKS;
 public:
+/**
+ * @brief
+ */
     void create();
+/**
+ * @brief In charge of socket init for recive files
+ */
     void Start();
+/**
+ * @brief In charge of the write of the file
+ */
     std::string Write(std::string&);
+/**
+ * @brief In charge of the Read of the file
+ */
     std::string Read(std::string&);
+/**
+ * @brief In charge of restore the data
+ */
     std::string Dir();
     void XorBit(std::vector<std::string>&);
 };

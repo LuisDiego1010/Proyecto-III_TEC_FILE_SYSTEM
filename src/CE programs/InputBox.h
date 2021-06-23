@@ -49,6 +49,9 @@ public:
      */
     void write(Event event);
 
+    /**
+     * @brief In charge of print the file in the text
+    */
     void PrintScreen(std::string="");
 };
 

@@ -18,7 +18,7 @@ public:
     zmq::socket_t * socket;
 
     /**
-     * \brief Call at the start of the Server, No need to be called again.
+     * @brief Call at the start of the Server, No need to be called again.
      * Init and connect the socket
      */
     void Init();
@@ -35,6 +35,9 @@ public:
      */
     std::string send(std::string);
 
+    /**
+     * @brief Start the port direction
+     */
     void setPort(const std::string &port);
 };
 

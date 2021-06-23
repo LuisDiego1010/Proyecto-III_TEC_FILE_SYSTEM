@@ -10,21 +10,30 @@
 class Socket_Client {
 public:
 
-    /**
-     * \brief Initializer of the socket, create the singleton and connect to the server
-     */
-    void Init();
+
     zmq::context_t ctx;
     std::string endpoint="tcp://127.0.0.1:";
     std::string port="4040";
     zmq::socket_t * socket;
+
     /**
      * \brief send a String to server and return the server answer.
      * @return
      */
     std::string comunicatte(std::string);
 
+    /**
+     * \brief In charge of set the client port
+     */
     void setPort(const std::string &port);
+
+    /**
+     * \brief Initializer of the socket, create the singleton and connect to the server
+     */
+
+    void Init();
+
+
 };
 
 

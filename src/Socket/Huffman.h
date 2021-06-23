@@ -10,14 +10,24 @@
 #include <map>
 namespace Huffman{
         struct Node;
+
         struct TreeNode;
+
         void SortVec(std::vector<TreeNode>&, long );
+
+
         void InsertNode(std::vector<TreeNode>&, TreeNode, long);
+
         std::string Encode(const std::string&,int=1);
+
         void CreateList(std::vector<TreeNode>&,const std::string&);
+
         TreeNode* CreateTree(std::vector<TreeNode>&);
+
         void CreateTable(std::map<std::string,std::string>&, TreeNode*, const std::string&);
+
         std::string Decode(const std::string*);
+
         void RunTree(TreeNode* ,std::string&, std::string&, long* );
 };
 

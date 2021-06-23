@@ -103,7 +103,7 @@ void CEROBOT::show() {
                             for (int i = 0; i < elementos.size(); i++) {
                                 std::ifstream in(dirPath + "/" + elementos[i]);
                                 if (!in.good()) {
-                                    //Comprobacion de error
+
                                 }
                                 in.seekg(0, in.end);
                                 int pos = in.tellg();

@@ -27,10 +27,9 @@ public:
     vector<string> elementos;
     bool active;
 
-
-    /**
- * @brief Constructor of class (DEFAULT)
- */
+/**
+* @brief Constructor of class (DEFAULT)
+*/
     CEROBOT();
 
 /**
@@ -38,11 +37,19 @@ public:
 */
     void show();
 
-
+/**
+ * @brief In charge of the search files in the directory
+ */
     void list_dir(string dir);
 
+/**
+ * @brief In charge of the the dirPath to search the files
+ */
     void init();
 
+/**
+ * @brief Initializer of the socket
+ */
     void Start();
 
 
