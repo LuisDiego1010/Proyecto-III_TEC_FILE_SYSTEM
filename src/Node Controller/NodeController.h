@@ -13,6 +13,11 @@ class NodeController {
     std::vector<Socket_Client*> DISKS;
 public:
     void create();
+    void Start();
+    std::string Write(std::string&);
+    std::string Read(std::string&);
+    std::string Dir();
+    void XorBit(std::vector<std::string>&);
 };
 
 

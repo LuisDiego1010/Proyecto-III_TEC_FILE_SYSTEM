@@ -17,7 +17,11 @@ std::string Socket_Client::comunicatte(std::string msg) {
     msg=Huffman::Encode(msg);
 
 //    Send
+    zmq::pollitem_t iteration={socket,0,ZMQ_POLLOUT,0};
+
     zmq::message_t msg_send(msg);
+
+
     socket->send(msg_send,zmq::send_flags::none);
     std::cout<<"[C]Sended: "<<msg_send;
 //    Recieve

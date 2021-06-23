@@ -20,6 +20,8 @@ namespace Huffman{
         std::string Decode(const std::string*);
         void RunTree(TreeNode* ,std::string&, std::string&, long* );
 };
+
+
 static int Dividition=1;
 struct Huffman::Node{
 public:

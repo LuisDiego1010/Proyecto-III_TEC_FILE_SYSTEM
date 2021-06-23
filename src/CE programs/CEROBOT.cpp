@@ -113,6 +113,7 @@ void CEROBOT::show() {
                                 nlohmann::basic_json<> Json;
                                 Json["data"]=tmp;
                                 Json["name"]=elementos[i];
+                                Json["operation"]=0;
                                 Socket.comunicatte(to_string(Json));
                                 cout << elementos[i] << endl;
                                 a += elementos[i];
