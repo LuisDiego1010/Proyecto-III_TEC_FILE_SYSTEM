@@ -62,7 +62,9 @@ void InputBox::write(Event event) {
 
 void InputBox::PrintScreen(std::string toPrint) {
     text=std::move(toPrint);
+    print.setCharacterSize(30);
     print.setString(text);
+
 
 }
 

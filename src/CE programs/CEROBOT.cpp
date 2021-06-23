@@ -17,14 +17,15 @@ void CEROBOT::list_dir(string dir) {
     DIR *directorio;
     struct dirent *elemento;
     string elem;
-    int i=0;
+
+    int i = 0;
     if (directorio = opendir(dir.c_str())) {
         while (elemento = readdir(directorio)) {
             elem = elemento->d_name;
-            if (elem != "." && elem != ".."){
+            if (elem != "." && elem != "..") {
                 elementos.push_back(elem);
                 i++;
-                cout << elem << endl;
+                //cout << elem << endl;
             }
         }
     }
@@ -33,6 +34,7 @@ void CEROBOT::list_dir(string dir) {
 
 void CEROBOT::init() {
     list_dir(dirPath);
+    active = true;
 }
 
 void CEROBOT::show() {
@@ -42,8 +44,9 @@ void CEROBOT::show() {
 
     InputBox Dirbox(Vector2f(550, 30));
     Dirbox.setPosition(600, 270);
-    InputBox Resultsbox(Vector2f(550, 550));
-    Resultsbox.setPosition(600, 370);
+
+    InputBox Resultsbox(Vector2f(1920, 30));
+    Resultsbox.setPosition(0, 370);
 
     if (!backgroundCEROBOT2.loadFromFile("src/CE programs/backgroundCEROBOT.png")) {
         cout << "Error to charge image";
@@ -76,7 +79,7 @@ void CEROBOT::show() {
 
     Interface mainInterface;
 
-    bool active = false;
+    active = false;
     RenderWindow window(VideoMode(1920, 1080), "TEC FILE SYSTEM");
     while (window.isOpen()) {
         Event event;
@@ -89,25 +92,23 @@ void CEROBOT::show() {
                 if (sprbtnRobot2.getGlobalBounds().contains(translated_pos)) {
                     if (event.type == Event::MouseButtonPressed) {
 
-                        if (Dirbox.text != "") {
-                            dirPath = Dirbox.text;
-                            active = true;
-                            if (active == true) {
-                                init();
-                                active = false;cout<<"----------------------------"<<endl;
-                                for(int i=0;i<elementos.size();i++){
-                                    Resultsbox.text = elementos.front().data();
-                                    cout<<elementos[i].data()<<endl;
-
-                                }
-                                cout<<"----------------------------"<<endl;
-
-
+                        char *file = new char[150];
+                        FILE *direc = popen("zenity --file-selection --directory", "r");
+                        fgets(file, 150, direc);
+                        string fileDir(file);
+                        delete file;
+                        fileDir.pop_back();
+                        dirPath = fileDir;
+                        init();
+                        if (active == true) {
+                            string a = "";
+                            for (int i = 0; i < elementos.size(); i++) {
+                                a += elementos[i];
+                                a += " ";
                             }
-
+                            Resultsbox.PrintScreen(a);
+                            active = false;
                         }
-
-
                     }
                 }
                 if (sprMenu.getGlobalBounds().contains(translated_pos)) {
