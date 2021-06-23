@@ -17,7 +17,6 @@ void CEROBOT::list_dir(string dir) {
     DIR *directorio;
     struct dirent *elemento;
     string elem;
-
     int i=0;
     if (directorio = opendir(dir.c_str())) {
         while (elemento = readdir(directorio)) {
