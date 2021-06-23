@@ -26,6 +26,7 @@ void NodeController::create() {
         DISKS.push_back(tmpSocket);
         socket = socket->NextSiblingElement();
         tmpSocket->Init();
+
     }
     auto *tmpSocket = new Socket_Client;
     //Set the xml data in the Socket and object

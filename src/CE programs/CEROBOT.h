@@ -14,12 +14,15 @@
 #include <filesystem>
 #include <queue>
 #include <vector>
+#include <Socket/Client.h>
+
 using namespace sf;
 using namespace std;
 
 
 class CEROBOT {
 public:
+    Socket_Client Socket;
     string dirPath;
     vector<string> elementos;
     bool active;
@@ -39,6 +42,9 @@ public:
     void list_dir(string dir);
 
     void init();
+
+    void Start();
+
 
 };
 

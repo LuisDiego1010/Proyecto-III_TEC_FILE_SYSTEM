@@ -7,6 +7,7 @@
 #include <iostream>
 #include <dirent.h>
 #include <fstream>
+#include <nlohmann/json.hpp>
 #include "InputBox.h"
 
 using namespace std;
@@ -104,13 +105,15 @@ void CEROBOT::show() {
                                 if (!in.good()) {
                                     //Comprobacion de error
                                 }
-
                                 in.seekg(0, in.end);
                                 int pos = in.tellg();
                                 string tmp("", pos);
                                 in.seekg(0, in.beg);
                                 in.read(tmp.data(), pos);
-
+                                nlohmann::basic_json<> Json;
+                                Json["data"]=tmp;
+                                Json["name"]=elementos[i];
+                                Socket.comunicatte(to_string(Json));
                                 cout << elementos[i] << endl;
                                 a += elementos[i];
                                 a += "     ";
@@ -135,3 +138,10 @@ void CEROBOT::show() {
         window.display();
     }
 }
+
+void CEROBOT::Start() {
+    Socket.Init();
+
+}
+
+
