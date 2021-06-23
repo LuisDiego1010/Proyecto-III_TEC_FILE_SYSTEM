@@ -18,11 +18,11 @@ void CEROBOT::list_dir(string dir) {
     struct dirent *elemento;
     string elem;
 
-    int i=0;
+    int i = 0;
     if (directorio = opendir(dir.c_str())) {
         while (elemento = readdir(directorio)) {
             elem = elemento->d_name;
-            if (elem != "." && elem != ".."){
+            if (elem != "." && elem != "..") {
                 elementos.push_back(elem);
                 i++;
                 cout << elem << endl;
@@ -43,8 +43,9 @@ void CEROBOT::show() {
 
     InputBox Dirbox(Vector2f(550, 30));
     Dirbox.setPosition(600, 270);
-    InputBox Resultsbox(Vector2f(550, 550));
-    Resultsbox.setPosition(600, 370);
+
+    InputBox Resultsbox(Vector2f(1920, 30));
+    Resultsbox.setPosition(0, 370);
 
     if (!backgroundCEROBOT2.loadFromFile("src/CE programs/backgroundCEROBOT.png")) {
         cout << "Error to charge image";
@@ -95,15 +96,13 @@ void CEROBOT::show() {
                             active = true;
                             if (active == true) {
                                 init();
-                                active = false;cout<<"----------------------------"<<endl;
-                                for(int i=0;i<elementos.size();i++){
-                                    Resultsbox.text = elementos.front().data();
-                                    cout<<elementos[i].data()<<endl;
-
+                                active = false;
+                                string a = "";
+                                for (int i = 0; i < elementos.size(); i++) {
+                                    a+= elementos[i];
+                                    a+= " ";
                                 }
-                                cout<<"----------------------------"<<endl;
-
-
+                                Resultsbox.PrintScreen(a);
                             }
 
                         }
