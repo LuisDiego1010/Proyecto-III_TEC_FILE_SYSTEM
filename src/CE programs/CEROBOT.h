@@ -12,12 +12,18 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <filesystem>
-
+#include <queue>
+#include <vector>
 using namespace sf;
 using namespace std;
 
+
 class CEROBOT {
 public:
+    string dirPath;
+    vector<string> elementos;
+
+
 /**
  * @brief Constructor of class (DEFAULT)
  */
@@ -27,6 +33,11 @@ public:
 * @brief Responsible for displaying the configuration window.
 */
     void show();
+
+
+    void list_dir(string dir);
+
+    void init();
 
 };
 

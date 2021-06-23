@@ -14,6 +14,7 @@ void CESEARCH::show() {
     Texture btnmenu;
 
 
+
     if(!backgroundCESEARCH2.loadFromFile("src/CE programs/backgroundCESEARCH.png")){
         cout<<"Error to charge image";
     }
