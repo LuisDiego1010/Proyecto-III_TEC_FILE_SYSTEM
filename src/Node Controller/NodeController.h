@@ -10,7 +10,6 @@
 
 class NodeController {
     Server CESocket;
-    std::vector<Socket_Client*> DISKS;
 public:
 /**
  * @brief
@@ -35,6 +34,8 @@ public:
 
 
     void XorBit(std::vector<std::string>&);
+
+    std::vector<Socket_Client*> DISKS;
 };
 
 

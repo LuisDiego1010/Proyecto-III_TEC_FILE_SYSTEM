@@ -15,6 +15,14 @@ void CESEARCH::show() {
     Texture backgroundCESEARCH2;
     Texture btnCESEARCH2;
     Texture btnmenu;
+    std::string a;
+    nlohmann::basic_json<> tmp;
+    tmp["name"]="";
+    tmp["operation"]=2;
+    a=Socket.comunicatte(to_string(tmp));
+    tmp= nlohmann::basic_json<>::parse(a);
+    std::vector<std::string> master=tmp["files"];
+    std::vector<std::string> filtered;
 
 
 
@@ -84,6 +92,13 @@ void CESEARCH::show() {
                 }
             }else if(event.type==Event::TextEntered) {
                 searchbox.write(event);
+                std::vector<std::string> list;
+                for (const auto& c:master) {
+                    if(c.find(searchbox.text)!=std::string::npos){
+                        list.push_back(c);
+                    }
+                }
+                filtered=list;
             }
         }
         window.clear(Color::Transparent);

@@ -52,8 +52,11 @@ void NodeController::Start() {
             CESocket.send(a);
         }
         if (Json["operation"] == 2) {
-//    DIR
-            std::string a = Read(instruction);
+            std::string a = DISKS[1]->comunicatte(instruction,1000);
+            if(a.empty()){
+                a = DISKS[0]->comunicatte(instruction,1000);
+            }
+
             CESocket.send(a);
 
         }
@@ -168,9 +171,24 @@ int main() {
 //a.push_back(d1);
 //NODE.XorBit(a);
 //    nlohmann::basic_json<> tmpJson;
-//    tmpJson["name"]="Archivo1.txt.data";
-//    tmpJson["operation"]=1;
-//    std::string a=to_string(tmpJson);
+//    tmpJson["name"]="Ar";
+//    tmpJson["operation"]=2;
+//    std::string m=to_string(tmpJson);
 //    std::string B= NODE.Read(a);
+//    std::string a = NODE.DISKS[1]->comunicatte(m,1000);
+//    if(a.empty()){
+//        a = NODE.DISKS[0]->comunicatte(m,1000);
+//    }
+//    nlohmann::basic_json<> tmp = nlohmann::basic_json<>::parse(a);
+//    std::vector<std::string> Oldlist=tmp["files"];
+//    std::vector<std::string> list;
+//    for (const auto& c:Oldlist) {
+//        if(c.find(tmpJson["name"])!=std::string::npos){
+//            list.push_back(c);
+//        }
+//    }
+//    tmp["files"]=list;
+//    m=to_string(tmpJson);
+
     exit(0);
 }
