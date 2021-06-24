@@ -9,8 +9,6 @@
 
 class Socket_Client {
 public:
-
-
     zmq::context_t ctx;
     std::string endpoint="tcp://127.0.0.1:";
     std::string port="4040";
@@ -28,13 +26,11 @@ public:
     void setPort(const std::string &port);
 
     /**
-     * \brief Initializer of the socket, create the singleton and connect to the server
+     * \brief Initializer of the socket, create the facade and connect to the server
      */
-
     void Init();
-
-
 };
+
 
 
 
