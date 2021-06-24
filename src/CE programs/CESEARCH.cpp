@@ -5,10 +5,13 @@
 #include "CESEARCH.h"
 #include "InputBox.h"
 #include "Interface.h"
+#include <nlohmann/json.hpp>
 
 CESEARCH::CESEARCH() = default;
 
 void CESEARCH::show() {
+    //Initialice Socket
+    Socket.Init();
     Texture backgroundCESEARCH2;
     Texture btnCESEARCH2;
     Texture btnmenu;
@@ -67,8 +70,10 @@ void CESEARCH::show() {
                     if (searchbox.text!=""){
                         setNameSearchBook(searchbox.text);
                         cout<<"SE ESTA BUCANDO EL LIBRO CON EL NOMBRE: "<<nameSearchBook;
-                        //AQUÍ SE REALIZA LA LÓGICA PARA OBTNER LA INFORMACIÓN DEL LIBRO BUSCADO
-                        window.close();
+                        nlohmann::basic_json<> Json;
+                        Json["data"]=nameSearchBook;
+                        Json["operation"]=1;
+                        Socket.comunicatte(to_string(Json));
                     }
                 }
                 if (sprMenu.getGlobalBounds().contains(translated_pos)) {
@@ -82,7 +87,6 @@ void CESEARCH::show() {
                 searchbox.write(event);
             }
         }
-
         window.clear(Color::Transparent);
         window.draw(sprbackgroundCESEARCH);
         window.draw(searchbox);
