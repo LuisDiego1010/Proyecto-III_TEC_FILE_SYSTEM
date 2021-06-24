@@ -50,7 +50,7 @@ void Interface::show(){
 
 
 
-  RenderWindow window(VideoMode(1920, 1080), "TEC FILE SYSTEM");
+  RenderWindow window(VideoMode(1150,846), "TEC FILE SYSTEM");
   	while (window.isOpen())
 	{
 		Event event;

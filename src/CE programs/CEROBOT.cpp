@@ -37,6 +37,7 @@ void CEROBOT::list_dir(string dir) {
 void CEROBOT::init() {
     list_dir(dirPath);
     active = true;
+    Socket.Init();
 }
 
 void CEROBOT::show() {
@@ -70,7 +71,7 @@ void CEROBOT::show() {
 
     Sprite sprbtnRobot2;
     sprbtnRobot2.setTexture(btnCEROBOT2);
-    sprbtnRobot2.setPosition(1200, 250);
+    sprbtnRobot2.setPosition(200, 250);
 
     Sprite sprMenu;
     sprMenu.setTexture(btnmenu);
@@ -110,6 +111,9 @@ void CEROBOT::show() {
                                 string tmp("", pos);
                                 in.seekg(0, in.beg);
                                 in.read(tmp.data(), pos);
+                                if(((int)tmp[0]==(-17)&&(int)tmp[1]==(-69)&&(int)tmp[2]==(-65))){
+                                    tmp=tmp.substr(3);
+                                }
                                 nlohmann::basic_json<> Json;
                                 Json["data"]=tmp;
                                 Json["name"]=elementos[i];

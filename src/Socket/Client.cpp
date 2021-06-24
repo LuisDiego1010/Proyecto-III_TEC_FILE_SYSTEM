@@ -17,11 +17,11 @@ std::string Socket_Client::comunicatte(std::string msg) {
     msg=Huffman::Encode(msg);
     int flag=1;
 //    Send
-    zmq::pollitem_t iteration={*socket,0,ZMQ_POLLOUT,0};
+    zmq::pollitem_t iteration={(void*)*socket,0,ZMQ_POLLOUT,0};
    flag= zmq_poll(&iteration,1,1000);
     if(flag<=0){
         std::cout<<zmq_strerror(zmq_errno());
-        return"error";
+        return"error1";
     }
     zmq::message_t msg_send(msg);
 
@@ -33,7 +33,7 @@ std::string Socket_Client::comunicatte(std::string msg) {
     flag= zmq_poll(&iteration,1,10000);
     if(flag==0){
         std::cout<<zmq_strerror(errno);
-        return"error";
+        return"error2";
     }
     zmq::message_t msg_recieve;
     socket->recv(msg_recieve);
