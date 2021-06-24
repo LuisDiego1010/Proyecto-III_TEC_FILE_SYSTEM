@@ -5,6 +5,7 @@
 #include <tinyxml2.h>
 #include "NodeController.h"
 #include <nlohmann/json.hpp>
+#include <iostream>
 
 void NodeController::create() {
 //    Get xml dir
@@ -44,7 +45,7 @@ void NodeController::Start() {
         nlohmann::basic_json<> Json = nlohmann::basic_json<>::parse(instruction);
         if (Json["operation"] == 0) {
             std::string a = Write(instruction);
-            CESocket.send("");
+            CESocket.send(a);
         }
         if (Json["operation"] == 1) {
 //    Read
@@ -83,9 +84,12 @@ std::string NodeController::Write(std::string &instruction) {
         if(i==parity){
             Json["flag"]=1;
         }
+        std::string code=DISKS[i]->comunicatte(to_string(Json));
+        nlohmann::basic_json<> verification = nlohmann::basic_json<>::parse(code);
+        if(verification["error"]<0){std::cout<<"error in the writing";}
     }
 
-    return std::string();
+    return to_string(Json);
 }
 
 void NodeController::XorBit(std::vector<std::string> &datas) {
@@ -104,16 +108,17 @@ void NodeController::XorBit(std::vector<std::string> &datas) {
 
 int main() {
     NodeController NODE;
-//    a.create();
-std::vector<std::string> a;
-std::string a1("asd");
-std::string b1("QBV");
-std::string c1("asd");
-std::string d1("asd");
-a.push_back(a1);
-a.push_back(b1);
-a.push_back(c1);
-a.push_back(d1);
-NODE.XorBit(a);
+    NODE.create();
+    NODE.Start();
+//std::vector<std::string> a;
+//std::string a1("asd");
+//std::string b1("QBV");
+//std::string c1("asd");
+//std::string d1("asd");
+//a.push_back(a1);
+//a.push_back(b1);
+//a.push_back(c1);
+//a.push_back(d1);
+//NODE.XorBit(a);
 
 }
