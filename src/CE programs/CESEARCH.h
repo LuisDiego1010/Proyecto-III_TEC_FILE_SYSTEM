@@ -12,12 +12,14 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <filesystem>
+#include <Socket/Client.h>
 
 using namespace sf;
 using namespace std;
 
 class CESEARCH {
 public:
+    Socket_Client Socket;
     string nameSearchBook;
     /**
     * @brief Constructor of class (DEFAULT)
