@@ -102,7 +102,7 @@ void DiskNodes::Start() {
             int error_code = disk.Write(a);
             Json["error"] = error_code;
             Json["data"] = "";
-            Json["parity"] = disk.parity;
+            Json["flag"] = disk.parity;
             Json.erase("data");
 
             socket->send(to_string(Json));

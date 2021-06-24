@@ -64,6 +64,7 @@ std::string NodeController::Write(std::string &instruction) {
     std::string data = Json["data"];
     unsigned long int DataSize = data.size();
     int NoDisk = (int) DISKS.size();
+    int parity =std::rand()%NoDisk;
     long subDataLength = floor(((double) DataSize / (NoDisk - 1)));
     std::vector<std::string> datas;
     while (NoDisk > 1) {
@@ -76,7 +77,13 @@ std::string NodeController::Write(std::string &instruction) {
     NoDisk--;
     data = "";
     XorBit(datas);
-
+    for (int i = 0; i < DISKS.size(); ++i) {
+        Json["flag"]=0;
+        Json["data"]=datas[i];
+        if(i==parity){
+            Json["flag"]=1;
+        }
+    }
 
     return std::string();
 }
