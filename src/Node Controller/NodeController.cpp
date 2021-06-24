@@ -68,7 +68,7 @@ std::string NodeController::Write(std::string &instruction) {
     int parity =std::rand()%NoDisk;
     long subDataLength = floor(((double) DataSize / (NoDisk - 1)));
     std::vector<std::string> datas;
-    while (NoDisk > 1) {
+    while (NoDisk > 2) {
         datas.push_back(data.substr(0, subDataLength));
         data = data.substr(subDataLength);
         NoDisk--;

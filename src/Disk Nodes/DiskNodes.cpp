@@ -45,7 +45,7 @@ int DiskNodes::Write(std::string &msg, bool retry) {
     std::string name = Json["name"];
     unsigned long int size = towrite.size();
     std::map<std::string, int> metadata;
-    int bloks = std::ceil((float) size / (float) BlockSize - 1);
+    int bloks = (int)std::ceil((float) size / (float) BlockSize - 1);
     if (bloks + elements > DiskSize) {
         return -3;
     }
@@ -104,7 +104,6 @@ void DiskNodes::Start() {
             Json["data"] = "";
             Json["flag"] = disk.parity;
             Json.erase("data");
-
             socket->send(to_string(Json));
         } else if (Json["operation"] == 1) {
             std::string StoragedData = disk.Read(a);

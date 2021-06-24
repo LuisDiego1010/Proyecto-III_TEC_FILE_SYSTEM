@@ -20,7 +20,7 @@ public:
      * \brief send a String to server and return the server answer.
      * @return
      */
-    std::string comunicatte(std::string);
+    std::string comunicatte(std::string,int=-1);
 
     /**
      * \brief In charge of set the client port

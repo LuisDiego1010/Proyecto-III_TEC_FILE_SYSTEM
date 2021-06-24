@@ -12,28 +12,34 @@ void Socket_Client::Init() {
     socket->connect(endpoint);
 }
 
-std::string Socket_Client::comunicatte(std::string msg) {
+std::string Socket_Client::comunicatte(std::string msg, int time) {
 //    Code
     msg=Huffman::Encode(msg);
     int flag=1;
 //    Send
-    zmq::pollitem_t iteration={(void*)*socket,0,ZMQ_POLLOUT,0};
-   flag= zmq_poll(&iteration,1,1000);
-    if(flag<=0){
-        std::cout<<zmq_strerror(zmq_errno());
-        return"error1";
+    if(time>0){
+        zmq::pollitem_t iteration={(void*)*socket,0,ZMQ_POLLOUT,0};
+        flag= zmq_poll(&iteration,1,time);
+        if(flag<=0){
+            std::cout<<zmq_strerror(zmq_errno());
+            return"error1";
+        }
     }
     zmq::message_t msg_send(msg);
 
 
     socket->send(msg_send,zmq::send_flags::none);
     std::cout<<"[C]Sended: "<<msg_send;
-//    Recieve
-    iteration.fd=ZMQ_POLLIN;
-    flag= zmq_poll(&iteration,1,10000);
-    if(flag==0){
-        std::cout<<zmq_strerror(errno);
-        return"error2";
+    //    Recieve
+    if(time>1){
+
+        zmq::pollitem_t iteration={(void*)*socket,0,ZMQ_POLLIN,0};
+        flag= zmq_poll(&iteration,1,time);
+        if(flag<0){
+            std::cout<<zmq_strerror(errno);
+            return"error2";
+        }
+
     }
     zmq::message_t msg_recieve;
     socket->recv(msg_recieve);
