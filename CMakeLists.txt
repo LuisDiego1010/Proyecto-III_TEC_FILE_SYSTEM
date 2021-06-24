@@ -32,7 +32,7 @@ add_executable(CE_Programs
         "src/CE programs/CESEARCH.cpp"
         "src/CE programs/CESEARCH.h"
         "src/CE programs/CEROBOT.cpp"
-        "src/CE programs/CEROBOT.h")
+        "src/CE programs/CEROBOT.h" "src/CE programs/TextBox.cpp" "src/CE programs/TextBox.h")
 
 target_link_libraries(CE_Programs
         ${CONAN_LIBS}

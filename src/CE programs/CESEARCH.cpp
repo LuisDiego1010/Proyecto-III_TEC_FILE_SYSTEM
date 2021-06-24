@@ -4,6 +4,7 @@
 
 #include "CESEARCH.h"
 #include "InputBox.h"
+#include "TextBox.h"
 #include "Interface.h"
 #include <nlohmann/json.hpp>
 
@@ -21,7 +22,7 @@ void CESEARCH::show() {
     tmp["operation"]=2;
     a=Socket.comunicatte(to_string(tmp));
     tmp= nlohmann::basic_json<>::parse(a);
-    std::vector<std::string> master=tmp["files"];
+    std::vector<std::string> master;
     std::vector<std::string> filtered;
 
 
@@ -59,6 +60,9 @@ void CESEARCH::show() {
     InputBox searchbox (Vector2f(550,30));
     searchbox.setPosition(600, 270);
 
+    TextBox textbox(Vector2f(400,330));
+    textbox.setPosition(100, 270);
+
     Interface mainInterface;
 
     RenderWindow window(VideoMode(1920, 1080), "CESEARCH");
@@ -80,7 +84,7 @@ void CESEARCH::show() {
                         Json["name"]=nameSearchBook;
                         Json["operation"]=1;
                         std::string data= Socket.comunicatte(to_string(Json));
-
+                        textbox.PrintScreen(data);
                     }
                 }
                 if (sprMenu.getGlobalBounds().contains(translated_pos)) {
@@ -93,9 +97,11 @@ void CESEARCH::show() {
             }else if(event.type==Event::TextEntered) {
                 searchbox.write(event);
                 std::vector<std::string> list;
+                std::string listString;
                 for (const auto& c:master) {
                     if(c.find(searchbox.text)!=std::string::npos){
                         list.push_back(c);
+                        listString+=c;
                     }
                 }
                 filtered=list;
@@ -105,6 +111,7 @@ void CESEARCH::show() {
         window.draw(sprbackgroundCESEARCH);
         window.draw(searchbox);
         window.draw(sprMenu);
+        window.draw(textbox);
         window.draw(sprbtnSearch2);
         window.display();
     }

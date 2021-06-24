@@ -28,7 +28,7 @@ public:
     void setPort(const std::string &port);
 
     /**
-     * \brief Initializer of the socket, create the singleton and connect to the server
+     * \brief Initializer of the socket, and connect to the server
      */
 
     void Init();
