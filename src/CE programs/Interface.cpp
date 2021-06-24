@@ -46,7 +46,7 @@ void Interface::show(){
     sprbtnFile.setPosition(300,250);
 
     sprbtnSearch.setTexture(btnSearch);
-    sprbtnSearch.setPosition(1200,250);
+    sprbtnSearch.setPosition(400,250);
 
 
 

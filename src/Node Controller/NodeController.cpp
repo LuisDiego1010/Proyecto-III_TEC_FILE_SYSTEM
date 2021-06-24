@@ -48,12 +48,13 @@ void NodeController::Start() {
             CESocket.send(a);
         }
         if (Json["operation"] == 1) {
-//    Read
-            CESocket.send("Readed // msg");
+            std::string a = Read(instruction);
+            CESocket.send(a);
         }
         if (Json["operation"] == 2) {
 //    DIR
-            CESocket.send("Dir // List");
+            std::string a = Read(instruction);
+            CESocket.send(a);
 
         }
 
@@ -65,7 +66,7 @@ std::string NodeController::Write(std::string &instruction) {
     std::string data = Json["data"];
     unsigned long int DataSize = data.size();
     int NoDisk = (int) DISKS.size();
-    int parity =std::rand()%NoDisk;
+    int parity = std::rand() % NoDisk;
     long subDataLength = floor(((double) DataSize / (NoDisk - 1)));
     std::vector<std::string> datas;
     while (NoDisk > 2) {
@@ -79,14 +80,14 @@ std::string NodeController::Write(std::string &instruction) {
     data = "";
     XorBit(datas);
     for (int i = 0; i < DISKS.size(); ++i) {
-        Json["flag"]=0;
-        Json["data"]=datas[i];
-        if(i==parity){
-            Json["flag"]=1;
+        Json["flag"] = 0;
+        Json["data"] = datas[i];
+        if (i == parity) {
+            Json["flag"] = 1;
         }
-        std::string code=DISKS[i]->comunicatte(to_string(Json));
+        std::string code = DISKS[i]->comunicatte(to_string(Json));
         nlohmann::basic_json<> verification = nlohmann::basic_json<>::parse(code);
-        if(verification["error"]<0){std::cout<<"error in the writing";}
+        if (verification["error"] < 0) { std::cout << "error in the writing"; }
     }
 
     return to_string(Json);
@@ -98,12 +99,58 @@ void NodeController::XorBit(std::vector<std::string> &datas) {
     while (size > 0) {
         char bit = datas[0][size - 1];
         for (int i = 1; i < datas.size(); ++i) {
-            bit = (char)(bit ^ datas[i][size - 1]);
+            bit = (char) (bit ^ datas[i][size - 1]);
         }
-        XOR.data()[size-1]=bit;
+        XOR.data()[size - 1] = bit;
         size--;
     }
     datas.push_back(XOR);
+}
+
+std::string NodeController::Read(std::string &instruction) {
+    std::vector<std::string> recievedatas;
+    std::vector<std::string> datas;
+    std::string parity;
+    std::string XOR;
+    std::string data;
+    int error=-1;
+    for (int i = 0; i < DISKS.size(); ++i) {
+        std::string tmp = DISKS[i]->comunicatte(instruction, 10000);
+        if (tmp == "error1"||tmp == "error2") {
+            error=i;
+            continue;
+        }
+        nlohmann::basic_json<> tmpJson = nlohmann::basic_json<>::parse(tmp);
+        if (tmpJson["flag"] == 1) {
+            parity = tmpJson["data"];
+            continue;
+        }
+        if(tmpJson.contains("error")){
+           if(tmpJson["error"]<0){
+               int asd=tmpJson["error"];
+               error=i;
+               continue;
+           }
+        }
+        recievedatas.push_back( tmpJson["data"]);
+    }
+    if(error!=-1){
+        recievedatas.push_back( parity);
+        XorBit(recievedatas);
+        XOR=recievedatas.back();
+    }
+    for(int i = 0; i < recievedatas.size()-2; ++i){
+        if(i==error){
+            datas.push_back( XOR);
+        }
+        datas.push_back( recievedatas[i]);
+    }
+    for(auto & i : datas){
+        data+=i;
+    }
+
+
+    return data;
 }
 
 int main() {
@@ -120,5 +167,10 @@ int main() {
 //a.push_back(c1);
 //a.push_back(d1);
 //NODE.XorBit(a);
-
+//    nlohmann::basic_json<> tmpJson;
+//    tmpJson["name"]="Archivo1.txt.data";
+//    tmpJson["operation"]=1;
+//    std::string a=to_string(tmpJson);
+//    std::string B= NODE.Read(a);
+    exit(0);
 }

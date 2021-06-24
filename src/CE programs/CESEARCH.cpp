@@ -42,7 +42,7 @@ void CESEARCH::show() {
 
     Sprite sprbtnSearch2;
     sprbtnSearch2.setTexture(btnCESEARCH2);
-    sprbtnSearch2.setPosition(1200, 250);
+    sprbtnSearch2.setPosition(400, 250);
 
     Sprite sprMenu;
     sprMenu.setTexture(btnmenu);
@@ -59,9 +59,7 @@ void CESEARCH::show() {
         Event event;
         auto mouse_pos = sf::Mouse::getPosition(window); // Mouse position relative to the window
         auto translated_pos = window.mapPixelToCoords(mouse_pos); // Mouse position translated into world coordinates
-
-        while (window.pollEvent(event))
-        {
+        while (window.pollEvent(event)){
             if (event.type == Event::Closed){
                 window.close();
 
@@ -71,9 +69,10 @@ void CESEARCH::show() {
                         setNameSearchBook(searchbox.text);
                         cout<<"SE ESTA BUCANDO EL LIBRO CON EL NOMBRE: "<<nameSearchBook;
                         nlohmann::basic_json<> Json;
-                        Json["data"]=nameSearchBook;
+                        Json["name"]=nameSearchBook;
                         Json["operation"]=1;
-                        Socket.comunicatte(to_string(Json));
+                        std::string data= Socket.comunicatte(to_string(Json));
+
                     }
                 }
                 if (sprMenu.getGlobalBounds().contains(translated_pos)) {

@@ -45,7 +45,7 @@ int DiskNodes::Write(std::string &msg, bool retry) {
     std::string name = Json["name"];
     unsigned long int size = towrite.size();
     std::map<std::string, int> metadata;
-    int bloks = (int)std::ceil((float) size / (float) BlockSize - 1);
+    int bloks = (int) std::ceil((float) size / (float) BlockSize - 1);
     if (bloks + elements > DiskSize) {
         return -3;
     }
@@ -121,7 +121,7 @@ std::string DiskNodes::Read(std::string &msg) {
     nlohmann::basic_json<> Json = nlohmann::basic_json<>::parse(msg);
     std::string name = Json["name"];
     std::string metadata;
-    std::ifstream MetaDataFile(dir + name + ".txt");
+    std::ifstream MetaDataFile(dir + name);
     if (!MetaDataFile.good()) {
         Json["error"] = -4;
         return to_string(Json);
@@ -129,7 +129,7 @@ std::string DiskNodes::Read(std::string &msg) {
     getline(MetaDataFile, metadata);
     nlohmann::basic_json<> Metadata = nlohmann::basic_json<>::parse(metadata);
     std::map<std::string, int> files = Metadata["Nodes"];
-    parity=Metadata["flag"];
+    parity = Metadata["flag"];
     std::string TEXT;
     for (const auto&[key, value]:files) {
         std::string tmp("", value + 1);
@@ -148,9 +148,9 @@ std::string DiskNodes::Read(std::string &msg) {
         }
         TEXT += tmp;
     }
-    Json["data"]=TEXT;
-    Json["flag"]=parity;
-    return TEXT;
+    Json["data"] = TEXT;
+    Json["flag"] = parity;
+    return to_string(Json);
 }
 
 void DiskNodes::count_dir() {

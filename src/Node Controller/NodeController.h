@@ -32,6 +32,8 @@ public:
  * @brief In charge of restore the data
  */
     std::string Dir();
+
+
     void XorBit(std::vector<std::string>&);
 };
 
