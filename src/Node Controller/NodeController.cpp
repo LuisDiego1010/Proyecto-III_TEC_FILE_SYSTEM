@@ -82,16 +82,27 @@ std::string NodeController::Write(std::string &instruction) {
     NoDisk--;
     data = "";
     XorBit(datas);
-    for (int i = 0; i < DISKS.size(); ++i) {
+    for(int i = 0; i < DISKS.size()-1; i) {
         Json["flag"] = 0;
         Json["data"] = datas[i];
-        if (i == parity) {
-            Json["flag"] = 1;
+        if (i >= parity) {
+            i++;
+            Json["data"] = datas[i-1];
+            std::string code = DISKS[i]->comunicatte(to_string(Json));
+            nlohmann::basic_json<> verification = nlohmann::basic_json<>::parse(code);
+            if (verification["error"] < 0) { std::cout << "error in the writing"; }
+            continue;
         }
         std::string code = DISKS[i]->comunicatte(to_string(Json));
         nlohmann::basic_json<> verification = nlohmann::basic_json<>::parse(code);
         if (verification["error"] < 0) { std::cout << "error in the writing"; }
+        i++;
     }
+    Json["flag"] = 1;
+    Json["data"] = datas.back();
+    std::string code = DISKS[parity]->comunicatte(to_string(Json));
+    nlohmann::basic_json<> verification = nlohmann::basic_json<>::parse(code);
+    if (verification["error"] < 0) { std::cout << "error in the writing"; }
 
     return to_string(Json);
 }
@@ -140,16 +151,22 @@ std::string NodeController::Read(std::string &instruction) {
     if (error != -1) {
         recievedatas.push_back(parity);
         XorBit(recievedatas);
-        XOR=recievedatas.back();
-    }
-    for(int i = 0; i < recievedatas.size()-2; ++i){
-        if(i==error){
-            datas.push_back( XOR);
+        XOR = recievedatas.back();
+        for (int i = 0; i < recievedatas.size() - 2; ++i) {
+            if (i == error) {
+                datas.push_back(XOR);
+            }
+            datas.push_back(recievedatas[i]);
         }
-        datas.push_back( recievedatas[i]);
+    } else {
+        for (int i = 0; i < recievedatas.size(); ++i) {
+            datas.push_back(recievedatas[i]);
+        }
     }
-    for(auto & i : datas){
-        data+=i;
+
+
+    for (auto &i: datas) {
+        data += i;
     }
 
 

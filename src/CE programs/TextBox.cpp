@@ -40,20 +40,22 @@ void TextBox::PrintScreen(std::string toPrint) {
         u_long line=text.find('\n');
         std::string tmpstring;
         if(split>line){
-            split=line;
-            tmpstring=text.substr(0,split);
-            split++;
+            tmpstring=text.substr(0,line);
         }else{
             tmpstring=text.substr(0,split);
         }
         if(split<text.size()){
-            text=text.substr(split);
+            if(split>line){
+                text=text.substr(line+1);
+            }else{
+                text=text.substr(split);
+            }
         }else{
             text="";
         }
-        auto tmp=Text(tmpstring, TextBox::font, 18);
+        auto tmp=Text(tmpstring, TextBox::font, 20);
         tmp.setFillColor(sf::Color::Black);
-        tmp.setPosition(x,y+i*15+2);
+        tmp.setPosition(x,y+i*40+6);
         print.push_back(tmp);
     }
 }

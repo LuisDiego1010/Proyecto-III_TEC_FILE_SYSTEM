@@ -9,6 +9,9 @@
 #include <vector>
 #include <map>
 namespace Huffman{
+    /**
+     *
+     */
         struct Node;
 
         struct TreeNode;
