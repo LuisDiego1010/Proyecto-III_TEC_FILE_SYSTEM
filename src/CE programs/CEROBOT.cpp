@@ -75,7 +75,7 @@ void CEROBOT::show() {
 
     Sprite sprMenu;
     sprMenu.setTexture(btnmenu);
-    sprMenu.setPosition(1700, 950);
+    sprMenu.setPosition(1750, 950);
 
     Interface mainInterface;
 
@@ -129,9 +129,9 @@ void CEROBOT::show() {
                     }
                 }
                 if (sprMenu.getGlobalBounds().contains(translated_pos)) {
-                    mainInterface.show();
                     window.close();
-                    return;
+                    mainInterface.show();
+                   return;
                 }
             }
         }

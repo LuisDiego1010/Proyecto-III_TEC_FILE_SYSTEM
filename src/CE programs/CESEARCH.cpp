@@ -53,7 +53,7 @@ void CESEARCH::show() {
 
     Sprite sprMenu;
     sprMenu.setTexture(btnmenu);
-    sprMenu.setPosition(1800, 950);
+    sprMenu.setPosition(1750, 950);
 
     InputBox searchbox(Vector2f(550, 30));
     searchbox.setPosition(600, 270);
@@ -89,8 +89,9 @@ void CESEARCH::show() {
                     }
                 }
                 if (sprMenu.getGlobalBounds().contains(translated_pos)) {
-                    mainInterface.show();
                     window.close();
+                    mainInterface.show();
+
                     return;
                 } else {
                     searchbox.select(translated_pos);
