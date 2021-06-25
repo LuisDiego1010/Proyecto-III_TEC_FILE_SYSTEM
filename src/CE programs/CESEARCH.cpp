@@ -18,31 +18,29 @@ void CESEARCH::show() {
     Texture btnmenu;
     std::string a;
     nlohmann::basic_json<> tmp;
-    tmp["name"]="";
-    tmp["operation"]=2;
-    a=Socket.comunicatte(to_string(tmp));
-    tmp= nlohmann::basic_json<>::parse(a);
-    std::vector<std::string> master;
+    tmp["name"] = "";
+    tmp["operation"] = 2;
+    a = Socket.comunicatte(to_string(tmp));
+    tmp = nlohmann::basic_json<>::parse(a);
+    std::vector<std::string> master = tmp["files"];
     std::vector<std::string> filtered;
 
 
-
-    if(!backgroundCESEARCH2.loadFromFile("src/CE programs/backgroundCESEARCH.png")){
-        cout<<"Error to charge image";
+    if (!backgroundCESEARCH2.loadFromFile("src/CE programs/backgroundCESEARCH.png")) {
+        cout << "Error to charge image";
     }
 
-    if(!btnCESEARCH2.loadFromFile("src/CE programs/btnCESEARCH2.png")){
-        cout<<"Error to charge image";
+    if (!btnCESEARCH2.loadFromFile("src/CE programs/btnCESEARCH2.png")) {
+        cout << "Error to charge image";
     }
 
-    if(!btnmenu.loadFromFile("src/CE programs/sprmenu.png")){
-        cout<<"Error to charge image";
+    if (!btnmenu.loadFromFile("src/CE programs/sprmenu.png")) {
+        cout << "Error to charge image";
     }
 
     Font font;
-    if (!font.loadFromFile("src/CE programs/Fonts/Ubuntu-Bold.ttf"))
-    {
-        cout<<"Error to charge font";
+    if (!font.loadFromFile("src/CE programs/Fonts/Ubuntu-Bold.ttf")) {
+        cout << "Error to charge font";
     }
 
     Sprite sprbackgroundCESEARCH;
@@ -57,33 +55,36 @@ void CESEARCH::show() {
     sprMenu.setTexture(btnmenu);
     sprMenu.setPosition(1800, 950);
 
-    InputBox searchbox (Vector2f(550,30));
+    InputBox searchbox(Vector2f(550, 30));
     searchbox.setPosition(600, 270);
 
-    TextBox textbox(Vector2f(400,330));
-    textbox.setPosition(100, 270);
+    TextBox textbox(Vector2f(1600, 600));
+    textbox.setPosition(100, 420);
+
+    InputBox Resultsbox(Vector2f(1920, 30));
+    Resultsbox.setPosition(0, 370);
 
     Interface mainInterface;
 
     RenderWindow window(VideoMode(1920, 1080), "CESEARCH");
-    while (window.isOpen())
-    {
+    while (window.isOpen()) {
         Event event;
         auto mouse_pos = sf::Mouse::getPosition(window); // Mouse position relative to the window
         auto translated_pos = window.mapPixelToCoords(mouse_pos); // Mouse position translated into world coordinates
-        while (window.pollEvent(event)){
-            if (event.type == Event::Closed){
+        while (window.pollEvent(event)) {
+            if (event.type == Event::Closed) {
                 window.close();
 
-            }if (event.type == Event::MouseButtonPressed) {
+            }
+            if (event.type == Event::MouseButtonPressed) {
                 if (sprbtnSearch2.getGlobalBounds().contains(translated_pos)) {
-                    if (searchbox.text!=""){
+                    if (searchbox.text != "") {
                         setNameSearchBook(searchbox.text);
-                        cout<<"SE ESTA BUCANDO EL LIBRO CON EL NOMBRE: "<<nameSearchBook;
+                        cout << "SE ESTA BUCANDO EL LIBRO CON EL NOMBRE: " << nameSearchBook;
                         nlohmann::basic_json<> Json;
-                        Json["name"]=nameSearchBook;
-                        Json["operation"]=1;
-                        std::string data= Socket.comunicatte(to_string(Json));
+                        Json["name"] = nameSearchBook;
+                        Json["operation"] = 1;
+                        std::string data = Socket.comunicatte(to_string(Json));
                         textbox.PrintScreen(data);
                     }
                 }
@@ -91,31 +92,38 @@ void CESEARCH::show() {
                     mainInterface.show();
                     window.close();
                     return;
-                }else{
+                } else {
                     searchbox.select(translated_pos);
                 }
-            }else if(event.type==Event::TextEntered) {
+            } else if (event.type == Event::TextEntered) {
+                Resultsbox.PrintScreen();
                 searchbox.write(event);
                 std::vector<std::string> list;
                 std::string listString;
-                for (const auto& c:master) {
-                    if(c.find(searchbox.text)!=std::string::npos){
+                for (const auto &c:master) {
+                    if (c.find(searchbox.text) != std::string::npos) {
                         list.push_back(c);
-                        listString+=c;
+                        listString += c;
+                        listString += " ";
                     }
+
                 }
-                filtered=list;
+                Resultsbox.PrintScreen(listString);
+                filtered = list;
+
             }
         }
         window.clear(Color::Transparent);
         window.draw(sprbackgroundCESEARCH);
         window.draw(searchbox);
+        window.draw(Resultsbox);
         window.draw(sprMenu);
         window.draw(textbox);
         window.draw(sprbtnSearch2);
         window.display();
     }
 }
+
 string CESEARCH::setNameSearchBook(String name_Book) {
     CESEARCH::nameSearchBook = name_Book;
     return nameSearchBook;

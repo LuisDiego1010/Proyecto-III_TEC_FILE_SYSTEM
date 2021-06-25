@@ -46,11 +46,11 @@ void Interface::show(){
     sprbtnFile.setPosition(300,250);
 
     sprbtnSearch.setTexture(btnSearch);
-    sprbtnSearch.setPosition(400,250);
+    sprbtnSearch.setPosition(1200,250);
 
 
 
-  RenderWindow window(VideoMode(1150,846), "TEC FILE SYSTEM");
+  RenderWindow window(VideoMode(1920,846), "TEC FILE SYSTEM");
   	while (window.isOpen())
 	{
 		Event event;

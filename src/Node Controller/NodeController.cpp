@@ -52,9 +52,9 @@ void NodeController::Start() {
             CESocket.send(a);
         }
         if (Json["operation"] == 2) {
-            std::string a = DISKS[1]->comunicatte(instruction,1000);
-            if(a.empty()){
-                a = DISKS[0]->comunicatte(instruction,1000);
+            std::string a = DISKS[1]->comunicatte(instruction, 1000);
+            if (a.empty()) {
+                a = DISKS[0]->comunicatte(instruction, 1000);
             }
 
             CESocket.send(a);
@@ -70,7 +70,7 @@ std::string NodeController::Write(std::string &instruction) {
     unsigned long int DataSize = data.size();
     int NoDisk = (int) DISKS.size();
     int parity = std::rand() % NoDisk;
-    long subDataLength = floor(((double) DataSize / (NoDisk - 1)));
+    long subDataLength = ceil(((double) DataSize / (NoDisk - 1)));
     std::vector<std::string> datas;
     while (NoDisk > 2) {
         datas.push_back(data.substr(0, subDataLength));
@@ -116,11 +116,11 @@ std::string NodeController::Read(std::string &instruction) {
     std::string parity;
     std::string XOR;
     std::string data;
-    int error=-1;
+    int error = -1;
     for (int i = 0; i < DISKS.size(); ++i) {
         std::string tmp = DISKS[i]->comunicatte(instruction, 10000);
-        if (tmp == "error1"||tmp == "error2") {
-            error=i;
+        if (tmp == "error1" || tmp == "error2") {
+            error = i;
             continue;
         }
         nlohmann::basic_json<> tmpJson = nlohmann::basic_json<>::parse(tmp);
@@ -128,17 +128,17 @@ std::string NodeController::Read(std::string &instruction) {
             parity = tmpJson["data"];
             continue;
         }
-        if(tmpJson.contains("error")){
-           if(tmpJson["error"]<0){
-               int asd=tmpJson["error"];
-               error=i;
-               continue;
-           }
+        if (tmpJson.contains("error")) {
+            if (tmpJson["error"] < 0) {
+                int asd = tmpJson["error"];
+                error = i;
+                continue;
+            }
         }
-        recievedatas.push_back( tmpJson["data"]);
+        recievedatas.push_back(tmpJson["data"]);
     }
-    if(error!=-1){
-        recievedatas.push_back( parity);
+    if (error != -1) {
+        recievedatas.push_back(parity);
         XorBit(recievedatas);
         XOR=recievedatas.back();
     }
