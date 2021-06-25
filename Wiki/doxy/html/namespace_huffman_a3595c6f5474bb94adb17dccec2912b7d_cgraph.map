@@ -1,0 +1,9 @@
+<map id="Huffman::Encode" name="Huffman::Encode">
+<area shape="rect" id="node1" title="Encode with Hufmann a string." alt="" coords="5,81,127,108"/>
+<area shape="rect" id="node2" href="$namespace_huffman.html#abe2bd733f9aa9a9a5e8a527d6fc5a6b6" title="Create the list with the probability of char." alt="" coords="371,5,507,32"/>
+<area shape="rect" id="node3" href="$namespace_huffman.html#a392c7d74bdaa4749796a30622fce2467" title="function to sort a vector as a array to keep the tree." alt="" coords="557,56,681,83"/>
+<area shape="rect" id="node4" href="$namespace_huffman.html#a6a826a624b2579fffc2ddeea7b48681a" title="create the representation table using the tree" alt="" coords="175,111,321,137"/>
+<area shape="rect" id="node6" href="$namespace_huffman.html#a01777fa87cadd75e16b2540e098c38da" title="Create a tree using the list sorted with probabilitys." alt="" coords="178,165,318,192"/>
+<area shape="rect" id="node5" href="$struct_huffman_1_1_tree_node.html#ae6096c192deb87bf135bd94e332ecfee" title=" " alt="" coords="369,107,509,149"/>
+<area shape="rect" id="node7" href="$namespace_huffman.html#a8c7bfe970e418eaaf42abed301c53ead" title="Insert Node in the huffman Tree." alt="" coords="370,173,509,200"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="DiskNodes::list_dir" name="DiskNodes::list_dir">
+<area shape="rect" id="node1" title="Get the names od the saved files." alt="" coords="5,5,136,32"/>
+<area shape="rect" id="node2" href="$class_disk_nodes.html#aa197780491d8052f1ac7e51bcbd9bad7" title="aux function of the list_dir() function" alt="" coords="184,5,301,32"/>
+</map>

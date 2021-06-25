@@ -1,0 +1,5 @@
+<map id="Huffman::CreateTree" name="Huffman::CreateTree">
+<area shape="rect" id="node1" title="Create a tree using the list sorted with probabilitys." alt="" coords="5,5,145,32"/>
+<area shape="rect" id="node2" href="$namespace_huffman.html#a8c7bfe970e418eaaf42abed301c53ead" title="Insert Node in the huffman Tree." alt="" coords="193,5,332,32"/>
+<area shape="rect" id="node3" href="$namespace_huffman.html#a392c7d74bdaa4749796a30622fce2467" title="function to sort a vector as a array to keep the tree." alt="" coords="380,5,504,32"/>
+</map>

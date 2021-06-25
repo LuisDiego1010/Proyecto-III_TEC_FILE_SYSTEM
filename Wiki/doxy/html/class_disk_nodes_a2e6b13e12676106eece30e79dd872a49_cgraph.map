@@ -1,0 +1,4 @@
+<map id="DiskNodes::Read" name="DiskNodes::Read">
+<area shape="rect" id="node1" title="Read the data in the disk Read the metadata in the I&#45;node, load, check parity and send all the data o..." alt="" coords="5,5,128,32"/>
+<area shape="rect" id="node2" href="$_parity_8cpp.html#a4265b6f90ab7d1d026926d6f13511eea" title=" " alt="" coords="176,5,279,32"/>
+</map>

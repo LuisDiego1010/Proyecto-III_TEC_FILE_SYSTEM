@@ -1,0 +1,21 @@
+<map id="main" name="main">
+<area shape="rect" id="node1" title=" " alt="" coords="5,107,56,133"/>
+<area shape="rect" id="node2" href="$class_node_controller.html#abced53a71dc6a1c88f9862559680efa9" title="Builder of the Node Controller Establish port of the disk and create sockets." alt="" coords="104,56,255,83"/>
+<area shape="rect" id="node5" href="$class_node_controller.html#afac7c55ab29f002b727ea986d0acdec0" title="In charge of socket init for recive files." alt="" coords="108,157,251,184"/>
+<area shape="rect" id="node3" href="$class_server.html#a945a9e37d916d0f66178af3fc0379173" title="Call at the start of the Server, No need to be called again. Init and connect the socket." alt="" coords="338,5,421,32"/>
+<area shape="rect" id="node4" href="$class_socket___client.html#af19207509f5c5e69c96730675e82c857" title="In charge of set the client port." alt="" coords="303,56,456,83"/>
+<area shape="rect" id="node6" href="$class_node_controller.html#a74d249a541af51a40729640e13ded42a" title="In charge of the Read of the file in the disknodes if one disk fail recreate the data,..." alt="" coords="307,208,452,235"/>
+<area shape="rect" id="node8" href="$class_server.html#ae1a028ebf231463f6726c016e15d571e" title=" " alt="" coords="326,107,433,133"/>
+<area shape="rect" id="node16" href="$class_server.html#ae605d50114e239b52688531effde66b1" title=" " alt="" coords="332,157,427,184"/>
+<area shape="rect" id="node19" href="$class_node_controller.html#a5deed0e55d2c75947545032bddd440bd" title="In charge of the write of the file Make the stripping and write in each disk the stripping." alt="" coords="306,259,453,285"/>
+<area shape="rect" id="node7" href="$class_node_controller.html#a3442dd774bf180562b919d43bd8face8" title="In charge of restore the data. apply the XOR bit for each char of a string on a vector,..." alt="" coords="504,233,653,260"/>
+<area shape="rect" id="node9" href="$namespace_huffman.html#afab902966d4761ae0a10048542953250" title="Decode a huffman algorith Recieve a Json wiht the comprimed data and a map (dictionarie ) with the pr..." alt="" coords="518,107,639,133"/>
+<area shape="rect" id="node10" href="$namespace_huffman.html#a6a826a624b2579fffc2ddeea7b48681a" title="create the representation table using the tree" alt="" coords="701,107,848,133"/>
+<area shape="rect" id="node12" href="$namespace_huffman.html#a01777fa87cadd75e16b2540e098c38da" title="Create a tree using the list sorted with probabilitys." alt="" coords="705,157,845,184"/>
+<area shape="rect" id="node14" href="$namespace_huffman.html#a392c7d74bdaa4749796a30622fce2467" title="function to sort a vector as a array to keep the tree." alt="" coords="1084,183,1208,209"/>
+<area shape="rect" id="node15" href="$namespace_huffman.html#a78086fdbed58996e8bdda498cb43ebc7" title="Check te code huffman and decode the representation to a string." alt="" coords="712,56,837,83"/>
+<area shape="rect" id="node11" href="$struct_huffman_1_1_tree_node.html#ae6096c192deb87bf135bd94e332ecfee" title=" " alt="" coords="896,74,1036,115"/>
+<area shape="rect" id="node13" href="$namespace_huffman.html#a8c7bfe970e418eaaf42abed301c53ead" title="Insert Node in the huffman Tree." alt="" coords="897,157,1035,184"/>
+<area shape="rect" id="node17" href="$namespace_huffman.html#a3595c6f5474bb94adb17dccec2912b7d" title="Encode with Hufmann a string." alt="" coords="518,157,639,184"/>
+<area shape="rect" id="node18" href="$namespace_huffman.html#abe2bd733f9aa9a9a5e8a527d6fc5a6b6" title="Create the list with the probability of char." alt="" coords="898,208,1034,235"/>
+</map>

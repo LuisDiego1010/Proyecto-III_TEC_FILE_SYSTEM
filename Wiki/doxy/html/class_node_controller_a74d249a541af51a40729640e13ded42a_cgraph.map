@@ -1,0 +1,4 @@
+<map id="NodeController::Read" name="NodeController::Read">
+<area shape="rect" id="node1" title="In charge of the Read of the file in the disknodes if one disk fail recreate the data,..." alt="" coords="5,5,151,32"/>
+<area shape="rect" id="node2" href="$class_node_controller.html#a3442dd774bf180562b919d43bd8face8" title="In charge of restore the data. apply the XOR bit for each char of a string on a vector,..." alt="" coords="199,5,348,32"/>
+</map>

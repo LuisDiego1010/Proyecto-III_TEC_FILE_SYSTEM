@@ -1,0 +1,5 @@
+<map id="NodeController::create" name="NodeController::create">
+<area shape="rect" id="node1" title="Builder of the Node Controller Establish port of the disk and create sockets." alt="" coords="5,31,156,57"/>
+<area shape="rect" id="node2" href="$class_server.html#a945a9e37d916d0f66178af3fc0379173" title="Call at the start of the Server, No need to be called again. Init and connect the socket." alt="" coords="239,5,322,32"/>
+<area shape="rect" id="node3" href="$class_socket___client.html#af19207509f5c5e69c96730675e82c857" title="In charge of set the client port." alt="" coords="204,56,357,83"/>
+</map>

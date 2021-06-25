@@ -1,0 +1,10 @@
+<map id="Server::recieve" name="Server::recieve">
+<area shape="rect" id="node1" title=" " alt="" coords="5,81,112,108"/>
+<area shape="rect" id="node2" href="$namespace_huffman.html#afab902966d4761ae0a10048542953250" title="Decode a huffman algorith Recieve a Json wiht the comprimed data and a map (dictionarie ) with the pr..." alt="" coords="160,81,281,108"/>
+<area shape="rect" id="node3" href="$namespace_huffman.html#a6a826a624b2579fffc2ddeea7b48681a" title="create the representation table using the tree" alt="" coords="329,5,476,32"/>
+<area shape="rect" id="node5" href="$namespace_huffman.html#a01777fa87cadd75e16b2540e098c38da" title="Create a tree using the list sorted with probabilitys." alt="" coords="333,107,473,133"/>
+<area shape="rect" id="node7" href="$namespace_huffman.html#a392c7d74bdaa4749796a30622fce2467" title="function to sort a vector as a array to keep the tree." alt="" coords="712,132,836,159"/>
+<area shape="rect" id="node8" href="$namespace_huffman.html#a78086fdbed58996e8bdda498cb43ebc7" title="Check te code huffman and decode the representation to a string." alt="" coords="340,56,465,83"/>
+<area shape="rect" id="node4" href="$struct_huffman_1_1_tree_node.html#ae6096c192deb87bf135bd94e332ecfee" title=" " alt="" coords="524,19,664,61"/>
+<area shape="rect" id="node6" href="$namespace_huffman.html#a8c7bfe970e418eaaf42abed301c53ead" title="Insert Node in the huffman Tree." alt="" coords="525,107,663,133"/>
+</map>

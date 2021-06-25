@@ -1,0 +1,6 @@
+<map id="DiskNodes::create" name="DiskNodes::create">
+<area shape="rect" id="node1" title="Initialize the sockets, the string that indicate the dir and block counts." alt="" coords="5,56,135,83"/>
+<area shape="rect" id="node2" href="$class_disk_nodes.html#a3a411f585c8c0e4a6f4a33bd734e8dea" title="Get the number of blocks." alt="" coords="183,5,329,32"/>
+<area shape="rect" id="node3" href="$class_server.html#a945a9e37d916d0f66178af3fc0379173" title="Call at the start of the Server, No need to be called again. Init and connect the socket." alt="" coords="215,56,297,83"/>
+<area shape="rect" id="node4" href="$class_server.html#aa4e461318d7497cecdf4eaf0ad765aa3" title="Start the port direction." alt="" coords="202,107,310,133"/>
+</map>
