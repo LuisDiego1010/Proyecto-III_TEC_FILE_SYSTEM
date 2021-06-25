@@ -12,7 +12,8 @@ class NodeController {
     Server CESocket;
 public:
 /**
- * @brief
+ * @brief Builder of the Node Controller
+ * Establish port of the disk and create sockets
  */
     void create();
 /**
@@ -21,18 +22,18 @@ public:
     void Start();
 /**
  * @brief In charge of the write of the file
+ * Make the stripping and write in each disk the stripping
  */
     std::string Write(std::string&);
 /**
- * @brief In charge of the Read of the file
+ * @brief In charge of the Read of the file in the disknodes
+ * if one disk fail recreate the data, takes 10 seg min to recreate the data
  */
     std::string Read(std::string&);
 /**
- * @brief In charge of restore the data
+ * @brief In charge of restore the data.
+ * apply the XOR bit for each char of a string on a vector, work for create XOR and recreate the data
  */
-    std::string Dir();
-
-
     void XorBit(std::vector<std::string>&);
 
     std::vector<Socket_Client*> DISKS;

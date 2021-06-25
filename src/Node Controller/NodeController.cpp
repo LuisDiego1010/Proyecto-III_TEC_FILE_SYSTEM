@@ -10,7 +10,7 @@
 void NodeController::create() {
 //    Get xml dir
     char *file = new char[150];
-    FILE *doc = popen("zenity --file-selection", "r");
+    FILE *doc = popen(R"(zenity --file-selection --title="Node")", "r");
     fgets(file, 150, doc);
     std::string xmldir(file);
     xmldir.pop_back();

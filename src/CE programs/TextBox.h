@@ -15,8 +15,7 @@ class TextBox : public sf::Drawable{
 
 public:
     /**
-     * Charge a default font to the INput box and auto determine the text size
-     * the size of the InputBox can`t be changed after.
+     * Charge a default font to the Text and create the white space.
      * @param size
      */
     explicit TextBox(Vector2f size);
@@ -29,7 +28,6 @@ public:
     std::vector< Text> print;
     int x{};
     int y{};
-    bool selected{};
 
     /**
      * Set the position of the BOX
